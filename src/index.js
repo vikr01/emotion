@@ -12,6 +12,22 @@ type inputVar = string | number
 
 type vars = Array<inputVar>
 
+// https://github.com/js-next/react-style/blob/master/lib/stylesToCSS.js#L74
+function replicateSelector (selector, uniqueKey, max = 10) {
+  const replicatedSelector = []
+  for (let i = 0; i < max; i++) {
+    let newSelector = ''
+    let j = 0
+    let length = i + 1
+    for (; j < length; j++) {
+      const selectorX = j === 0 ? selector : '.' + uniqueKey
+      newSelector += selectorX + (j !== 0 ? j : '')
+    }
+    replicatedSelector[i] = newSelector
+  }
+  return replicatedSelector.join(',')
+}
+
 function values (cls: string, vars: vars) {
   const hash = hashArray([cls, ...vars])
   const varCls = `vars-${hash}`
@@ -55,7 +71,9 @@ export function css (classes: string[], vars: vars, content: () => string[]) {
       inserted[hash] = true
       const rgx = new RegExp(classes[0], 'gm')
       forEach(src, r => {
-        sheet.insert(r.replace(rgx, `${classes[0]}-${hash}`))
+        const finalRule = r.replace(rgx, replicateSelector(`${classes[0]}`, hash, 2, ''))
+        console.log(finalRule)
+        sheet.insert(finalRule)
       })
     }
     return `${classes[0]}-${hash} ${computedClassName}`
