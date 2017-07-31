@@ -28,7 +28,7 @@ describe('babel css', () => {
       const basic = `
         css\`
         margin: 12px 48px;
-        \${css\`font-size: 32px\`};
+        \${css\`font-size: 32px\`}
         color: #ffffff;
         @media(min-width: 420px) {
           width: 96px;
@@ -77,7 +77,7 @@ describe('babel css', () => {
           display: flex;
         \`
         const cls2 = css\`
-          composes: \${'one-class'} \${'another-class'}\${cls1}
+          composes: \${'one-class'} \${'another-class'}\${cls1};
           justify-content: center;
           align-items: \${'center'}
         \`
@@ -181,7 +181,7 @@ describe('babel css', () => {
         \`
         const cls2 = css\`
           justify-content: center;
-          composes: \${['one-class', 'another-class', cls1]}
+          composes: \${['one-class', 'another-class', cls1]};
           align-items: \${'center'}
         \`
       `
@@ -285,7 +285,7 @@ describe('babel css', () => {
           display: flex;
         \`
         const cls2 = css\`
-          composes: \${['one-class', 'another-class', cls1]}
+          composes: \${['one-class', 'another-class', cls1]};
           justify-content: center;
           align-items: \${'center'}
         \`
@@ -305,7 +305,7 @@ describe('babel css', () => {
           display: flex;
         \`
         const cls2 = css\`
-          composes: \${'one-class'} \${'another-class'}\${cls1}
+          composes: \${'one-class'} \${'another-class'}\${cls1};
           justify-content: center;
           align-items: center
         \`

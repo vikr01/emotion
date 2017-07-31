@@ -33,7 +33,7 @@ function createRawStringFromQuasi (
       arr.push(str)
       if (i !== strs.length - 1) {
         dynamicValueCount++
-        arr.push(`xxx${i}xxx`)
+        arr.push(`@xxx${i}xxx`)
       }
       return arr
     }, [])

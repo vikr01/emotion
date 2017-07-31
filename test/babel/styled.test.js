@@ -120,7 +120,7 @@ describe('babel styled component', () => {
         width: w\${something}ow;
         transform: translateX(\${(props) => props.translateX}) translateY(\${(props) => props.translateX});
         transform1: translateX(\${(props) => props.translateX}) translateY(\${(props) => props.translateX});
-        transform2: translateX(\${(props) => props.translateX}) translateY(\${(props) => props.translateX};
+        transform2: translateX(\${(props) => props.translateX}) \${(props) => props.translateX};
         \``
       const { code } = babel.transform(basic, {
         plugins: [plugin]

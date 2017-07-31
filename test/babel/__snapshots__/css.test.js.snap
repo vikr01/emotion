@@ -267,7 +267,7 @@ exports[`babel css inline css random expression 1`] = `
 })], function createEmotionStyledRules(x0) {
   return [{
     \\"margin\\": \\"12px 48px\\",
-    [\`\${x0}\`]: \\"\\",
+    [\`\${x0}\`]: {},
     \\"color\\": \\"#ffffff\\",
     \\"@media (min-width: 420px)\\": {
       \\"width\\": \\"96px\\",

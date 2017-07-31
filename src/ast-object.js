@@ -168,7 +168,7 @@ export default class ASTObject {
   }
 
   getDynamicMatches (str) {
-    const re = /xxx(\d+)xxx/gm
+    const re = /@xxx(\d+)xxx/gm
     let match
     const matches = []
     while ((match = re.exec(str)) !== null) {
@@ -314,7 +314,7 @@ export default class ASTObject {
             arr.push(str)
             if (i !== strs.length - 1) {
               expressions.push(exprs[i])
-              arr.push(`xxx${expressions.length - 1}xxx`)
+              arr.push(`@xxx${expressions.length - 1}xxx`)
             }
             return arr
           },
@@ -325,7 +325,7 @@ export default class ASTObject {
       }
 
       expressions.push(node)
-      return `xxx${expressions.length - 1}xxx`
+      return `@xxx${expressions.length - 1}xxx`
     }
 
     function convertAstToObj (astObj) {

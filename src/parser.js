@@ -1,5 +1,5 @@
 // @flow
-import SafeParser from 'postcss-safe-parser/lib/safe-parser'
+import safeParse from 'postcss/lib/parse'
 import postcssNested from 'postcss-nested'
 import postcssJs from 'postcss-js'
 import objParse from 'postcss-js/parser'
@@ -42,7 +42,7 @@ export function parseCSS (
 
   root.walkDecls((decl: Decl): void => {
     if (decl.prop === 'composes') {
-      if (!/xxx(\d+)xxx/gm.exec(decl.value)) {
+      if (!/@xxx(\d+)xxx/gm.exec(decl.value)) {
         throw new Error('composes must be a interpolation')
       }
       if (decl.parent.nodes[0] !== decl) {
@@ -53,6 +53,22 @@ export function parseCSS (
       composes += numOfComposes
       vars += numOfComposes
       decl.remove()
+    }
+  })
+
+  root.walkAtRules(atRule => {
+    if (/xxx(\d+)xxx/gm.exec(atRule.name)) {
+      if (atRule.nodes === undefined || atRule.params.startsWith('@')) {
+        const node = safeParse(atRule.params).first
+        if (node !== undefined) {
+          node.nodes = atRule.nodes
+          atRule.nodes = undefined
+          atRule.parent.insertAfter(atRule, node)
+          atRule.params = ''
+        }
+      }
+      // this will not work as expected in some cases
+      //
     }
   })
 
@@ -90,7 +106,7 @@ export function expandCSSFallbacks (style: { [string]: any }) {
   return flattened
 }
 
-var camelcase = require('camelcase-css')
+const camelcase = require('camelcase-css')
 
 function atRule (node) {
   if (typeof node.nodes === 'undefined') {
@@ -107,10 +123,8 @@ function objectifyPostcssRules (node) {
   let cursor = 0
   node.each(function (child) {
     var rules = {}
-    // console.log(JSON.stringify(child, null, 2))
-    node.each(function (rule) {
-      if (rule.type !== 'rule') {
-      } else if (rules[rule.selector]) {
+    node.walkRules(function (rule) {
+      if (rules[rule.selector]) {
         // console.log(rules[rule.selector])
         if (rules[rule.selector].append) {
           rules[rule.selector].append(rule.nodes)
@@ -147,30 +161,4 @@ function objectifyPostcssRules (node) {
     }
   })
   return result[0]
-}
-
-// Parser
-
-import Input from 'postcss/lib/input'
-
-export function safeParse (css, opts) {
-  let input = new Input(css, opts)
-
-  let parser = new EmotionSafeParser(input)
-  parser.parse()
-
-  return parser.root
-}
-
-export class EmotionSafeParser extends SafeParser {
-  unknownWord (tokens) {
-    if (tokens[0][0] === 'word') {
-      if (/xxx(\d+)xxx/gm.exec(tokens[0][1])) {
-        this.decl(tokens)
-        return
-      }
-    }
-
-    this.spaces += tokens.map(i => i[1]).join('')
-  }
 }

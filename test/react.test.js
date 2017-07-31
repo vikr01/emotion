@@ -172,7 +172,7 @@ describe('styled', () => {
     ])
 
     const Avatar = styled('img')`
-      composes: ${prettyStyles} ${imageStyles} ${blue}
+      composes: ${prettyStyles} ${imageStyles} ${blue};
     `
 
     const tree = renderer.create(<Avatar />).toJSON()
@@ -277,7 +277,7 @@ describe('styled', () => {
     `
 
     const cssB = css`
-      composes: ${cssA}
+      composes: ${cssA};
       color: red;
     `
 
@@ -310,12 +310,12 @@ describe('styled', () => {
     }
 
     const cssB = css`
-      composes: ${cssA}
+      composes: ${cssA};
       height: 64px;
     `
 
     const H1 = styled('h1')`
-      composes: ${cssB}
+      composes: ${cssB};
       font-size: ${modularScale(4)};
     `
 
@@ -359,7 +359,7 @@ describe('styled', () => {
     `
 
     const cssB = css`
-      composes: ${cssA}
+      composes: ${cssA};
       height: 64px;
     `
 
@@ -368,7 +368,7 @@ describe('styled', () => {
     `
 
     const H1 = styled(Heading)`
-      composes: ${cssB}
+      composes: ${cssB};
       font-size: ${fontSize};
       color: ${p => p.theme.purple}
     `
@@ -391,7 +391,7 @@ describe('styled', () => {
   test('higher order component', () => {
     const fontSize = 20
     const Content = styled('div')`
-      font-size: ${fontSize}px;
+      font-size: ${fontSize};
     `
 
     const squirtleBlueBackground = css`
@@ -401,7 +401,7 @@ describe('styled', () => {
 
     const flexColumn = Component => {
       const NewComponent = styled(Component)`
-        composes: ${squirtleBlueBackground}
+        composes: ${squirtleBlueBackground};
         name: onyx;
         background-color: '#343a40';
         flex-direction: column;
@@ -429,7 +429,7 @@ describe('styled', () => {
     `
 
     const H1 = styled('h1')`
-      composes: ${props => (props.a ? cssA : cssB)}
+      composes: ${props => (props.a ? cssA : cssB)};
     `
 
     const tree = renderer.create(<H1 a>hello world</H1>).toJSON()

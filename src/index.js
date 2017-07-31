@@ -245,7 +245,7 @@ function deconstruct (style) {
       supports = supports || {}
       supports[key] = deconstruct(style[key])
     } else if (key.indexOf('css-') === 0) {
-      plain = { ...plain, ...style[key]}
+      plain = assign({}, plain, style[key])
     } else {
       plain = plain || {}
       plain[key] = style[key]
