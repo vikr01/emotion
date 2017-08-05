@@ -1,6 +1,6 @@
 import styled from 'emotion/react/macro'
 
-const View = styled.div`
+const View = styled('div')`
   align-items: stretch;
   border-width: 0;
   border-style: solid;

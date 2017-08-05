@@ -4,7 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-  context: __dirname,
+  // context: __dirname,
   entry: './index',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -33,10 +33,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      openAnalyzer: false
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    //   openAnalyzer: false
+    // }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
@@ -47,6 +47,13 @@ module.exports = {
         warnings: false
       }
     })
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     dead_code: true,
+    //     screw_ie8: true,
+    //     warnings: false
+    //   }
+    // })
   ],
   resolve: {
     alias: {
