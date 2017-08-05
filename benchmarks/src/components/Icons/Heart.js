@@ -1,6 +1,6 @@
-import { createDOMElement } from 'react-native';
-import React from 'react';
-import styles from './styles';
+import { createDOMElement } from 'react-native'
+import React from 'react'
+import styles from './styles'
 
 const IconHeart = props =>
   createDOMElement('svg', {
@@ -11,8 +11,8 @@ const IconHeart = props =>
     ),
     style: [styles.icon, props.style],
     viewBox: '0 0 54 72'
-  });
+  })
 
-IconHeart.metadata = { height: 72, width: 54 };
+IconHeart.metadata = { height: 72, width: 54 }
 
-export default IconHeart;
+export default IconHeart

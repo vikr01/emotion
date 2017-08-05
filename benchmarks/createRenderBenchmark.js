@@ -1,13 +1,18 @@
-import benchmark from './benchmark';
-import ReactDOM from 'react-dom';
+import benchmark from './benchmark'
+import ReactDOM from 'react-dom'
 
-const node = document.querySelector('.root');
+const node = document.querySelector('.root')
 
-const createRenderBenchmark = ({ description, getElement, name, runs }) => () => {
-  const setup = () => {};
+const createRenderBenchmark = ({
+  description,
+  getElement,
+  name,
+  runs
+}) => () => {
+  const setup = () => {}
   const teardown = () => {
-    ReactDOM.unmountComponentAtNode(node);
-  };
+    ReactDOM.unmountComponentAtNode(node)
+  }
 
   return benchmark({
     name,
@@ -16,9 +21,9 @@ const createRenderBenchmark = ({ description, getElement, name, runs }) => () =>
     setup,
     teardown,
     task: () => {
-      ReactDOM.render(getElement(), node);
+      ReactDOM.render(getElement(), node)
     }
-  });
-};
+  })
+}
 
-export default createRenderBenchmark;
+export default createRenderBenchmark

@@ -1,25 +1,25 @@
-import AspectRatio from '../AspectRatio';
-import GridView from '../GridView';
-import PropTypes from 'prop-types';
-import TweetActionsBar from '../TweetActionsBar';
-import TweetText from '../TweetText';
-import UserAvatar from '../UserAvatar';
-import UserNames from '../UserNames';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import React, { Component } from 'react';
-import theme from '../theme';
+import AspectRatio from '../AspectRatio'
+import GridView from '../GridView'
+import PropTypes from 'prop-types'
+import TweetActionsBar from '../TweetActionsBar'
+import TweetText from '../TweetText'
+import UserAvatar from '../UserAvatar'
+import UserNames from '../UserNames'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import React, { Component } from 'react'
+import theme from '../theme'
 
 export class Tweet extends Component {
-  static displayName = 'Tweet';
+  static displayName = 'Tweet'
 
   static propTypes = {
     tweet: PropTypes.object.isRequired
-  };
+  }
 
   render() {
-    const { tweet } = this.props;
-    const { id, lang, media, textParts, timestamp, user } = tweet;
-    const { fullName, profileImageUrl, screenName } = user;
+    const { tweet } = this.props
+    const { id, lang, media, textParts, timestamp, user } = tweet
+    const { fullName, profileImageUrl, screenName } = user
 
     return (
       <View accessibilityRole="article" accessible style={styles.root}>
@@ -48,7 +48,11 @@ export class Tweet extends Component {
               </View>
 
               <View accessibilityRole="heading" aria-level="4">
-                <TweetText displayMode={'links'} lang={lang} textParts={textParts} />
+                <TweetText
+                  displayMode={'links'}
+                  lang={lang}
+                  textParts={textParts}
+                />
               </View>
 
               {media
@@ -86,7 +90,7 @@ export class Tweet extends Component {
           </View>
         </GridView>
       </View>
-    );
+    )
   }
 }
 
@@ -139,6 +143,6 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 'auto'
   }
-});
+})
 
-export default Tweet;
+export default Tweet

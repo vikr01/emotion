@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import Radium from 'radium';
-import React from 'react';
+import Radium from 'radium'
+import React from 'react'
 
 class View extends React.Component {
   render() {
-    const { style, ...other } = this.props;
-    return <div {...other} style={[styles.root, style]} />;
+    const { style, ...other } = this.props
+    return <div {...other} style={[styles.root, style]} />
   }
 }
 
@@ -26,6 +26,6 @@ const styles = {
     minHeight: 0,
     minWidth: 0
   }
-};
+}
 
-export default Radium(View);
+export default Radium(View)

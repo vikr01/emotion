@@ -1,23 +1,23 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import { StyleSheet, View } from 'react-native'
 
 class AspectRatio extends PureComponent {
-  static displayName = 'AspectRatio';
+  static displayName = 'AspectRatio'
 
   static propTypes = {
     children: PropTypes.any,
     ratio: PropTypes.number,
     style: PropTypes.object
-  };
+  }
 
   static defaultProps = {
     ratio: 1
-  };
+  }
 
   render() {
-    const { children, ratio, style } = this.props;
-    const percentage = 100 / ratio;
+    const { children, ratio, style } = this.props
+    const percentage = 100 / ratio
 
     return (
       <View style={[styles.root, style]}>
@@ -26,7 +26,7 @@ class AspectRatio extends PureComponent {
           {children}
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
     display: 'block',
     width: '100%'
   }
-});
+})
 
-export default AspectRatio;
+export default AspectRatio

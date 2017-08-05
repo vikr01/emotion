@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import View from '../View/emotion-css'
+import View from '../View/emotion-obj-style'
 
 const Box = ({
   color,

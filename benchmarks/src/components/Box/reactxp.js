@@ -1,8 +1,14 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { Styles, View } from 'reactxp';
+import React from 'react'
+import { Styles, View } from 'reactxp'
 
-const Box = ({ color, fixed = false, layout = 'column', outer = false, ...other }) =>
+const Box = ({
+  color,
+  fixed = false,
+  layout = 'column',
+  outer = false,
+  ...other
+}) =>
   <View
     {...other}
     style={[
@@ -11,7 +17,7 @@ const Box = ({ color, fixed = false, layout = 'column', outer = false, ...other 
       layout === 'row' && styles.row,
       outer && styles.outer
     ]}
-  />;
+  />
 
 const styles = {
   outer: Styles.createViewStyle({
@@ -42,6 +48,6 @@ const styles = {
     width: 20,
     height: 20
   })
-};
+}
 
-export default Box;
+export default Box

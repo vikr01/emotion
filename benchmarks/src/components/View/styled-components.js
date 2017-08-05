@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const View = styled.div`
   align-items: stretch;
@@ -14,6 +14,6 @@ const View = styled.div`
   position: relative;
   min-height: 0;
   min-width: 0;
-`;
+`
 
-export default View;
+export default View

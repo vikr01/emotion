@@ -1,9 +1,15 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import StyleSheet from 'react-native/apis/StyleSheet';
-import View from '../View/react-native-stylesheet';
+import React from 'react'
+import StyleSheet from 'react-native/apis/StyleSheet'
+import View from '../View/react-native-stylesheet'
 
-const Box = ({ color, fixed = false, layout = 'column', outer = false, ...other }) =>
+const Box = ({
+  color,
+  fixed = false,
+  layout = 'column',
+  outer = false,
+  ...other
+}) =>
   <View
     {...other}
     style={[
@@ -12,7 +18,7 @@ const Box = ({ color, fixed = false, layout = 'column', outer = false, ...other 
       layout === 'row' && styles.row,
       outer && styles.outer
     ]}
-  />;
+  />
 
 const styles = StyleSheet.create({
   outer: {
@@ -43,6 +49,6 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20
   }
-});
+})
 
-export default Box;
+export default Box

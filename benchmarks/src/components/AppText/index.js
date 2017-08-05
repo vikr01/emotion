@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import theme from '../theme';
-import React, { PureComponent } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import PropTypes from 'prop-types'
+import theme from '../theme'
+import React, { PureComponent } from 'react'
+import { StyleSheet, Text } from 'react-native'
 
 class AppText extends PureComponent {
-  static displayName = 'AppText';
+  static displayName = 'AppText'
 
   static propTypes = {
     align: PropTypes.oneOf(['center', 'left', 'right']),
@@ -13,10 +13,18 @@ class AppText extends PureComponent {
     size: PropTypes.oneOf(['small', 'normal', 'large']),
     uppercase: PropTypes.bool,
     weight: PropTypes.oneOf(['normal', 'bold'])
-  };
+  }
 
   render() {
-    const { align, color, fontStyle, size, uppercase, weight, ...other } = this.props;
+    const {
+      align,
+      color,
+      fontStyle,
+      size,
+      uppercase,
+      weight,
+      ...other
+    } = this.props
 
     const style = [
       styles.root,
@@ -26,9 +34,9 @@ class AppText extends PureComponent {
       size && sizeStyles[size],
       weight && weightStyles[weight],
       uppercase === true && styles.uppercase
-    ];
+    ]
 
-    return <Text {...other} style={style} />;
+    return <Text {...other} style={style} />
   }
 }
 
@@ -43,7 +51,7 @@ const styles = StyleSheet.create({
   uppercase: {
     textTransform: 'uppercase'
   }
-});
+})
 
 const alignStyles = StyleSheet.create({
   center: {
@@ -55,7 +63,7 @@ const alignStyles = StyleSheet.create({
   right: {
     textAlign: 'right'
   }
-});
+})
 
 const colorStyles = StyleSheet.create({
   blue: {
@@ -73,7 +81,7 @@ const colorStyles = StyleSheet.create({
   white: {
     color: theme.colors.white
   }
-});
+})
 
 const fontStyles = StyleSheet.create({
   normal: {
@@ -82,7 +90,7 @@ const fontStyles = StyleSheet.create({
   italic: {
     fontStyle: 'italic'
   }
-});
+})
 
 const sizeStyles = StyleSheet.create({
   small: {
@@ -94,7 +102,7 @@ const sizeStyles = StyleSheet.create({
   large: {
     fontSize: theme.fontSize.large
   }
-});
+})
 
 const weightStyles = StyleSheet.create({
   normal: {
@@ -103,6 +111,6 @@ const weightStyles = StyleSheet.create({
   bold: {
     fontWeight: 'bold'
   }
-});
+})
 
-export default AppText;
+export default AppText

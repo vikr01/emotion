@@ -13,7 +13,7 @@ const colors = {
   gray: '#AAB8C2',
   lightGray: '#CCD6DD',
   textBlack: '#14171A'
-};
+}
 
 const fontSize = {
   root: '14px',
@@ -21,7 +21,7 @@ const fontSize = {
   small: '0.85rem',
   normal: '1rem',
   large: '1.25rem'
-};
+}
 
 const theme = {
   colors,
@@ -33,8 +33,8 @@ const theme = {
   spaceX: 0.6,
   spaceY: 1.3125,
   createLength(num, unit) {
-    return `${num}${unit}`;
+    return `${num}${unit}`
   }
-};
+}
 
-export default theme;
+export default theme

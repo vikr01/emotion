@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { css, StyleSheet } from 'aphrodite';
+import React from 'react'
+import { css, StyleSheet } from 'aphrodite'
 
 class View extends React.Component {
   render() {
-    const { style, ...other } = this.props;
-    return <div {...other} className={css(styles.root, style)} />;
+    const { style, ...other } = this.props
+    return <div {...other} className={css(styles.root, style)} />
   }
 }
 
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
     minHeight: 0,
     minWidth: 0
   }
-});
+})
 
-export default View;
+export default View

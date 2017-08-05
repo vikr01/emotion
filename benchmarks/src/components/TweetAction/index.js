@@ -1,29 +1,29 @@
-import IconReply from '../Icons/Reply';
-import IconHeart from '../Icons/Heart';
-import IconRetweet from '../Icons/Retweet';
-import IconDirectMessage from '../Icons/DirectMessage';
-import PropTypes from 'prop-types';
-import React from 'react';
-import theme from '../theme';
-import { Text, View, StyleSheet } from 'react-native';
+import IconReply from '../Icons/Reply'
+import IconHeart from '../Icons/Heart'
+import IconRetweet from '../Icons/Retweet'
+import IconDirectMessage from '../Icons/DirectMessage'
+import PropTypes from 'prop-types'
+import React from 'react'
+import theme from '../theme'
+import { Text, View, StyleSheet } from 'react-native'
 
 const getIcon = (icon, highlighted) => {
   switch (icon) {
     case 'like':
-      return <IconHeart />;
+      return <IconHeart />
     case 'reply':
-      return <IconReply />;
+      return <IconReply />
     case 'retweet':
-      return <IconRetweet />;
+      return <IconRetweet />
     case 'directMessage':
-      return <IconDirectMessage />;
+      return <IconDirectMessage />
     default:
-      return null;
+      return null
   }
-};
+}
 
 export default class TweetAction extends React.Component {
-  static displayName = 'TweetAction';
+  static displayName = 'TweetAction'
 
   static propTypes = {
     count: PropTypes.number,
@@ -31,13 +31,17 @@ export default class TweetAction extends React.Component {
     highlighted: PropTypes.bool,
     onPress: PropTypes.func,
     style: PropTypes.object
-  };
+  }
 
   render() {
-    const { count, displayMode, highlighted, onPress, style } = this.props;
+    const { count, displayMode, highlighted, onPress, style } = this.props
 
     return (
-      <View accessibilityRole="button" onPress={onPress} style={[styles.root, style]}>
+      <View
+        accessibilityRole="button"
+        onPress={onPress}
+        style={[styles.root, style]}
+      >
         <Text
           style={[
             styles.inner,
@@ -53,7 +57,7 @@ export default class TweetAction extends React.Component {
             : null}
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -79,4 +83,4 @@ const styles = StyleSheet.create({
   likedColor: {
     color: theme.colors.red
   }
-});
+})

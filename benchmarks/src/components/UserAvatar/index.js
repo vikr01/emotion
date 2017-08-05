@@ -1,25 +1,25 @@
-import AspectRatio from '../AspectRatio';
-import PropTypes from 'prop-types';
-import { Image, StyleSheet } from 'react-native';
-import React, { PureComponent } from 'react';
-import theme from '../theme';
+import AspectRatio from '../AspectRatio'
+import PropTypes from 'prop-types'
+import { Image, StyleSheet } from 'react-native'
+import React, { PureComponent } from 'react'
+import theme from '../theme'
 
 class UserAvatar extends PureComponent {
-  static displayName = 'UserAvatar';
+  static displayName = 'UserAvatar'
 
   static propTypes = {
     accessibilityLabel: PropTypes.string,
     circle: PropTypes.bool,
     style: PropTypes.object,
     uri: PropTypes.string
-  };
+  }
 
   static defaultProps = {
     circle: false
-  };
+  }
 
   render() {
-    const { accessibilityLabel, circle, style, uri } = this.props;
+    const { accessibilityLabel, circle, style, uri } = this.props
 
     return (
       <AspectRatio ratio={1} style={[styles.root, style]}>
@@ -33,19 +33,19 @@ class UserAvatar extends PureComponent {
             />
           : null}
       </AspectRatio>
-    );
+    )
   }
 
   _handleLoad = () => {
-    this._imageRef && this._imageRef.setNativeProps(nativeProps);
-  };
+    this._imageRef && this._imageRef.setNativeProps(nativeProps)
+  }
 
   _setImageRef = component => {
-    this._imageRef = component;
-  };
+    this._imageRef = component
+  }
 }
 
-const nativeProps = { style: { backgroundColor: '#fff' } };
+const nativeProps = { style: { backgroundColor: '#fff' } }
 
 const styles = StyleSheet.create({
   root: {
@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%'
   }
-});
+})
 
-export default UserAvatar;
+export default UserAvatar

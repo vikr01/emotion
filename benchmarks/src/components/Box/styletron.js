@@ -1,9 +1,15 @@
 /* eslint-disable react/prop-types */
-import { injectStylePrefixed } from 'styletron-utils';
-import React from 'react';
-import View, { styletron } from '../View/styletron';
+import { injectStylePrefixed } from 'styletron-utils'
+import React from 'react'
+import View, { styletron } from '../View/styletron'
 
-const Box = ({ color, fixed = false, layout = 'column', outer = false, ...other }) =>
+const Box = ({
+  color,
+  fixed = false,
+  layout = 'column',
+  outer = false,
+  ...other
+}) =>
   <View
     {...other}
     style={[
@@ -12,7 +18,7 @@ const Box = ({ color, fixed = false, layout = 'column', outer = false, ...other 
       layout === 'row' && styles.row,
       outer && styles.outer
     ]}
-  />;
+  />
 
 const styles = {
   outer: injectStylePrefixed(styletron, {
@@ -43,6 +49,6 @@ const styles = {
     width: '20px',
     height: '20px'
   })
-};
+}
 
-export default Box;
+export default Box

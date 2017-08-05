@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Image, StyleSheet, Text } from 'react-native';
-import PropTypes from 'prop-types';
-import React from 'react';
-import theme from '../theme';
+import { Image, StyleSheet, Text } from 'react-native'
+import PropTypes from 'prop-types'
+import React from 'react'
+import theme from '../theme'
 
-const createTextEntity = ({ part }) => <Text>{`${part.prefix}${part.text}`}</Text>;
+const createTextEntity = ({ part }) =>
+  <Text>{`${part.prefix}${part.text}`}</Text>
 
 const createTwemojiEntity = ({ part }) =>
   <Image
@@ -12,22 +13,26 @@ const createTwemojiEntity = ({ part }) =>
     draggable={false}
     source={{ uri: part.emoji }}
     style={styles.twemoji}
-  />;
+  />
 
 // @mention, #hashtag, $cashtag
 const createSymbolEntity = ({ displayMode, part }) => {
-  const links = displayMode === 'links';
+  const links = displayMode === 'links'
   return (
-    <Text accessibilityRole={links ? 'link' : null} href={part.url} style={[links && styles.link]}>
+    <Text
+      accessibilityRole={links ? 'link' : null}
+      href={part.url}
+      style={[links && styles.link]}
+    >
       {`${part.prefix}${part.text}`}
     </Text>
-  );
-};
+  )
+}
 
 // internal links
 const createLinkEntity = ({ displayMode, part }) => {
-  const { displayUrl, linkRelation, url } = part;
-  const links = displayMode === 'links';
+  const { displayUrl, linkRelation, url } = part
+  const links = displayMode === 'links'
 
   return (
     <Text
@@ -38,13 +43,13 @@ const createLinkEntity = ({ displayMode, part }) => {
     >
       {displayUrl}
     </Text>
-  );
-};
+  )
+}
 
 // external links
 const createExternalLinkEntity = ({ displayMode, part }) => {
-  const { displayUrl, linkRelation, url } = part;
-  const links = displayMode === 'links';
+  const { displayUrl, linkRelation, url } = part
+  const links = displayMode === 'links'
 
   return (
     <Text
@@ -56,40 +61,47 @@ const createExternalLinkEntity = ({ displayMode, part }) => {
     >
       {displayUrl}
     </Text>
-  );
-};
+  )
+}
 
 class TweetTextPart extends React.Component {
-  static displayName = 'TweetTextPart';
+  static displayName = 'TweetTextPart'
 
   static propTypes = {
     displayMode: PropTypes.oneOf(['links', 'no-links']),
     part: PropTypes.object
-  };
+  }
 
   static defaultProps = {
     displayMode: 'links'
-  };
+  }
 
   render() {
-    let renderer;
-    const { isEmoji, isEntity, isHashtag, isMention, isMedia, isUrl } = this.props.part;
+    let renderer
+    const {
+      isEmoji,
+      isEntity,
+      isHashtag,
+      isMention,
+      isMedia,
+      isUrl
+    } = this.props.part
 
     if (isEmoji || isEntity || isUrl || isMedia) {
       if (isUrl) {
-        renderer = createExternalLinkEntity;
+        renderer = createExternalLinkEntity
       } else if (isHashtag || isMention) {
-        renderer = createSymbolEntity;
+        renderer = createSymbolEntity
       } else if (isEmoji) {
-        renderer = createTwemojiEntity;
+        renderer = createTwemojiEntity
       } else {
-        renderer = createLinkEntity;
+        renderer = createLinkEntity
       }
     } else {
-      renderer = createTextEntity;
+      renderer = createTextEntity
     }
 
-    return renderer(this.props);
+    return renderer(this.props)
   }
 }
 
@@ -107,6 +119,6 @@ const styles = StyleSheet.create({
     paddingLeft: '0.1em',
     verticalAlign: '-0.2em'
   }
-});
+})
 
-export default TweetTextPart;
+export default TweetTextPart

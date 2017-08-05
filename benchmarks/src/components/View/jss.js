@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import classnames from 'classnames';
-import injectSheet from 'react-jss';
-import React from 'react';
+import classnames from 'classnames'
+import injectSheet from 'react-jss'
+import React from 'react'
 
 class View extends React.Component {
   render() {
-    const { classes, className, ...other } = this.props;
-    return <div {...other} className={classnames(classes.root, className)} />;
+    const { classes, className, ...other } = this.props
+    return <div {...other} className={classnames(classes.root, className)} />
   }
 }
 
@@ -27,6 +27,6 @@ const styles = {
     minHeight: 0,
     minWidth: 0
   }
-};
+}
 
-export default injectSheet(styles)(View);
+export default injectSheet(styles)(View)

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   icon: {
@@ -10,6 +10,6 @@ const styles = StyleSheet.create({
     userSelect: 'none',
     verticalAlign: 'text-bottom'
   }
-});
+})
 
-export default styles;
+export default styles

@@ -1,6 +1,6 @@
-import { createDOMElement } from 'react-native';
-import React from 'react';
-import styles from './styles';
+import { createDOMElement } from 'react-native'
+import React from 'react'
+import styles from './styles'
 
 const IconDirectMessage = props =>
   createDOMElement('svg', {
@@ -12,8 +12,8 @@ const IconDirectMessage = props =>
     ),
     style: [styles.icon, props.style],
     viewBox: '0 0 56 72'
-  });
+  })
 
-IconDirectMessage.metadata = { height: 72, width: 56 };
+IconDirectMessage.metadata = { height: 72, width: 56 }
 
-export default IconDirectMessage;
+export default IconDirectMessage

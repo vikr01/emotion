@@ -1,19 +1,19 @@
-import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
-import React, { Component } from 'react';
-import theme from '../theme';
+import PropTypes from 'prop-types'
+import { StyleSheet, View } from 'react-native'
+import React, { Component } from 'react'
+import theme from '../theme'
 
 class GridView extends Component {
-  static displayName = 'GridView';
+  static displayName = 'GridView'
 
   static propTypes = {
     children: PropTypes.node,
     hasGap: PropTypes.bool,
     style: PropTypes.object
-  };
+  }
 
   render() {
-    const { children, hasGap, style, ...other } = this.props;
+    const { children, hasGap, style, ...other } = this.props
 
     return (
       <View {...other} style={[style, styles.root, hasGap && styles.hasGap]}>
@@ -21,12 +21,16 @@ class GridView extends Component {
           return (
             child &&
             React.cloneElement(child, {
-              style: [child.props.style, styles.column, hasGap && styles.hasGapColumn]
+              style: [
+                child.props.style,
+                styles.column,
+                hasGap && styles.hasGapColumn
+              ]
             })
-          );
+          )
         })}
       </View>
-    );
+    )
   }
 }
 
@@ -48,6 +52,6 @@ const styles = StyleSheet.create({
   hasGapColumn: {
     marginHorizontal: theme.createLength(theme.spaceX * 0.5, 'rem')
   }
-});
+})
 
-export default GridView;
+export default GridView

@@ -1,6 +1,6 @@
-import createRenderBenchmark from '../createRenderBenchmark';
-import Tweet from '../src/components/Tweet';
-import React from 'react';
+import createRenderBenchmark from '../createRenderBenchmark'
+import Tweet from '../src/components/Tweet'
+import React from 'react'
 
 const tweet1 = {
   favorite_count: 30,
@@ -37,9 +37,10 @@ const tweet1 = {
   user: {
     fullName: 'Nicolas',
     screenName: 'necolas',
-    profileImageUrl: 'https://pbs.twimg.com/profile_images/804365942360719360/dQnPejph_normal.jpg'
+    profileImageUrl:
+      'https://pbs.twimg.com/profile_images/804365942360719360/dQnPejph_normal.jpg'
   }
-};
+}
 
 const tweet2 = {
   favorite_count: 84,
@@ -92,9 +93,10 @@ const tweet2 = {
   user: {
     fullName: 'Nicolas',
     screenName: 'necolas',
-    profileImageUrl: 'https://pbs.twimg.com/profile_images/804365942360719360/dQnPejph_normal.jpg'
+    profileImageUrl:
+      'https://pbs.twimg.com/profile_images/804365942360719360/dQnPejph_normal.jpg'
   }
-};
+}
 
 const renderTweet = label =>
   createRenderBenchmark({
@@ -106,8 +108,8 @@ const renderTweet = label =>
           <Tweet tweet={tweet1} />
           <Tweet tweet={tweet2} />
         </div>
-      );
+      )
     }
-  });
+  })
 
-export default renderTweet;
+export default renderTweet

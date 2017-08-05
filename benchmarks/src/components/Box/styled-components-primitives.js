@@ -1,23 +1,23 @@
-import styled from 'styled-components/primitives';
+import styled from 'styled-components/primitives'
 
 const getColor = color => {
   switch (color) {
     case 0:
-      return '#222';
+      return '#222'
     case 1:
-      return '#666';
+      return '#666'
     case 2:
-      return '#999';
+      return '#999'
     case 3:
-      return 'blue';
+      return 'blue'
     case 4:
-      return 'orange';
+      return 'orange'
     case 5:
-      return 'red';
+      return 'red'
     default:
-      return 'transparent';
+      return 'transparent'
   }
-};
+}
 
 const Box = styled.View`
   flex-direction: ${props => (props.layout === 'column' ? 'column' : 'row')};
@@ -25,6 +25,6 @@ const Box = styled.View`
   height: ${props => (props.fixed ? '20px' : 'auto')};
   width: ${props => (props.fixed ? '20px' : 'auto')};
   background-color: ${props => getColor(props.color)};
-`;
+`
 
-export default Box;
+export default Box

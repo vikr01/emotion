@@ -1,10 +1,10 @@
-import AppText from '../AppText';
-import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native';
-import React, { PureComponent } from 'react';
+import AppText from '../AppText'
+import PropTypes from 'prop-types'
+import { StyleSheet } from 'react-native'
+import React, { PureComponent } from 'react'
 
 class UserNames extends PureComponent {
-  static displayName = 'UserNames';
+  static displayName = 'UserNames'
 
   static propTypes = {
     fullName: PropTypes.string,
@@ -12,14 +12,21 @@ class UserNames extends PureComponent {
     onPress: PropTypes.func,
     screenName: PropTypes.string,
     style: PropTypes.object
-  };
+  }
 
   static defaultProps = {
     layout: 'nowrap'
-  };
+  }
 
   render() {
-    const { fullName, layout, onPress, screenName, style, ...other } = this.props;
+    const {
+      fullName,
+      layout,
+      onPress,
+      screenName,
+      style,
+      ...other
+    } = this.props
 
     return (
       <AppText
@@ -33,9 +40,12 @@ class UserNames extends PureComponent {
           {fullName}
         </AppText>
         {layout === 'stack' ? ' \u000A' : ' '}
-        <AppText color="deepGray" style={styles.screenName}>{`@${screenName}`}</AppText>
+        <AppText
+          color="deepGray"
+          style={styles.screenName}
+        >{`@${screenName}`}</AppText>
       </AppText>
-    );
+    )
   }
 }
 
@@ -47,6 +57,6 @@ const styles = StyleSheet.create({
     unicodeBidi: 'embed',
     writingDirection: 'ltr'
   }
-});
+})
 
-export default UserNames;
+export default UserNames

@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import StyleSheet from 'react-native/apis/StyleSheet';
-import registry from 'react-native/apis/StyleSheet/registry';
+import React from 'react'
+import StyleSheet from 'react-native/apis/StyleSheet'
+import registry from 'react-native/apis/StyleSheet/registry'
 
-const emptyObject = {};
+const emptyObject = {}
 
 class View extends React.Component {
   render() {
-    const { style, ...other } = this.props;
-    const styleProps = registry.resolve([styles.root, style]) || emptyObject;
-    return <div {...other} {...styleProps} />;
+    const { style, ...other } = this.props
+    const styleProps = registry.resolve([styles.root, style]) || emptyObject
+    return <div {...other} {...styleProps} />
   }
 }
 
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     minHeight: 0,
     minWidth: 0
   }
-});
+})
 
-export default View;
+export default View

@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 
 class DeepTree extends Component {
   static propTypes = {
@@ -8,15 +8,21 @@ class DeepTree extends Component {
     depth: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
     wrap: PropTypes.number.isRequired
-  };
+  }
 
   render() {
-    const { breadth, components, depth, id, wrap } = this.props;
-    const { Box } = components;
+    const { breadth, components, depth, id, wrap } = this.props
+    const { Box } = components
 
     let result = (
-      <Box color={id % 3} components={components} layout={depth % 2 === 0 ? 'column' : 'row'} outer>
-        {depth === 0 && <Box color={id % 3 + 3} components={components} fixed />}
+      <Box
+        color={id % 3}
+        components={components}
+        layout={depth % 2 === 0 ? 'column' : 'row'}
+        outer
+      >
+        {depth === 0 &&
+          <Box color={id % 3 + 3} components={components} fixed />}
         {depth !== 0 &&
           Array.from({ length: breadth }).map((el, i) =>
             <DeepTree
@@ -29,16 +35,16 @@ class DeepTree extends Component {
             />
           )}
       </Box>
-    );
+    )
     for (let i = 0; i < wrap; i++) {
       result = (
         <Box components={components}>
           {result}
         </Box>
-      );
+      )
     }
-    return result;
+    return result
   }
 }
 
-export default DeepTree;
+export default DeepTree

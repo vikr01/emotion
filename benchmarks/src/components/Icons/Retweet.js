@@ -1,6 +1,6 @@
-import { createDOMElement } from 'react-native';
-import React from 'react';
-import styles from './styles';
+import { createDOMElement } from 'react-native'
+import React from 'react'
+import styles from './styles'
 
 const IconRetweet = props =>
   createDOMElement('svg', {
@@ -11,8 +11,8 @@ const IconRetweet = props =>
     ),
     style: [styles.icon, props.style],
     viewBox: '0 0 74 72'
-  });
+  })
 
-IconRetweet.metadata = { height: 72, width: 74 };
+IconRetweet.metadata = { height: 72, width: 74 }
 
-export default IconRetweet;
+export default IconRetweet

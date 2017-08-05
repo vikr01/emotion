@@ -1,13 +1,14 @@
 // import aphrodite from './src/aphrodite'
 // import cssModules from './src/css-modules'
-import emotion from './src/emotion'
+// import emotion from './src/emotion'
 import emotionCSS from './src/emotion-css'
+import emotionObjStyle from './src/emotion-obj-style'
 import glamor from './src/glamor'
 // import jss from './src/jss'
 // import radium from './src/radium'
 // import reactNative from './src/react-native'
 // import reactNativeStyleSheet from './src/react-native-stylesheet'
-import styledComponents from './src/styled-components'
+// import styledComponents from './src/styled-components'
 // import styledComponentsPrimitives from './src/styled-components-primitives'
 // import styletron from './src/styletron'
 // import xp from './src/reactxp'
@@ -24,7 +25,9 @@ const coreTests = [
   // () => renderDeepTree('emotion', emotion),
   // () => renderWideTree('emotion', emotion),
   () => renderDeepTree('emotionCSS', emotionCSS),
-  () => renderWideTree('emotionCSS', emotionCSS)
+  () => renderWideTree('emotionCSS', emotionCSS),
+  () => renderDeepTree('emotionObjStyle', emotionObjStyle),
+  () => renderWideTree('emotionObjStyle', emotionObjStyle),
   // () => renderTweet('react-native-web', reactNative),
   // () => renderDeepTree('css-modules', cssModules),
   // () => renderWideTree('css-modules', cssModules),
@@ -34,8 +37,8 @@ const coreTests = [
   // () => renderDeepTree('react-native-web', reactNative),
   // () => renderWideTree('react-native-web', reactNative)
   // () => renderTweet('glamor', glamor),
-  // () => renderDeepTree('glamor', glamor),
-  // () => renderWideTree('glamor', glamor),
+  () => renderDeepTree('glamor', glamor),
+  () => renderWideTree('glamor', glamor)
 
   // () => renderTweet('styled-components', styledComponents),
   // () => renderDeepTree('styled-components', styledComponents),

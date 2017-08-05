@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import classnames from 'classnames';
-import Styletron from 'styletron-client';
-import { injectStylePrefixed } from 'styletron-utils';
-import React from 'react';
+import classnames from 'classnames'
+import Styletron from 'styletron-client'
+import { injectStylePrefixed } from 'styletron-utils'
+import React from 'react'
 
-export const styletron = new Styletron();
+export const styletron = new Styletron()
 
 class View extends React.Component {
   render() {
-    const { style, ...other } = this.props;
-    return <div {...other} className={classnames(viewStyle, ...style)} />;
+    const { style, ...other } = this.props
+    return <div {...other} className={classnames(viewStyle, ...style)} />
   }
 }
 
@@ -28,6 +28,6 @@ const viewStyle = injectStylePrefixed(styletron, {
   // fix flexbox bugs
   minHeight: '0px',
   minWidth: '0px'
-});
+})
 
-export default View;
+export default View

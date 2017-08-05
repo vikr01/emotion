@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { css } from 'emotion'
+import { objStyle } from 'emotion'
 import React from 'react'
 
 class View extends React.Component {
   render() {
     const { style, ...other } = this.props
-    return <div {...other} className={css([viewStyle, ...style])} />
+    return <div {...other} className={objStyle(viewStyle, ...style)} />
   }
 }
 
