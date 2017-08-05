@@ -6,6 +6,7 @@
     "classnames": "^2.2.5",
     "emotion": "^7.0.10",
     "glamor": "^2.20.37",
+    "glamorous": "^4.1.0",
     "marky": "^1.2.0",
     "postcss": "^6.0.8",
     "radium": "^0.19.1",

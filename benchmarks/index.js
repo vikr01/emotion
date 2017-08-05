@@ -1,14 +1,15 @@
 // import aphrodite from './src/aphrodite'
 // import cssModules from './src/css-modules'
-// import emotion from './src/emotion'
+import emotion from './src/emotion'
 import emotionCSS from './src/emotion-css'
 import emotionObjStyle from './src/emotion-obj-style'
 import glamor from './src/glamor'
+import glamorous from './src/glamorous'
 // import jss from './src/jss'
 // import radium from './src/radium'
 // import reactNative from './src/react-native'
 // import reactNativeStyleSheet from './src/react-native-stylesheet'
-// import styledComponents from './src/styled-components'
+import styledComponents from './src/styled-components'
 // import styledComponentsPrimitives from './src/styled-components-primitives'
 // import styletron from './src/styletron'
 // import xp from './src/reactxp'
@@ -22,8 +23,8 @@ const testFastest = window.location.search === '?fastest'
 
 const coreTests = [
   // () => renderTweet('emotion', emotion),
-  // () => renderDeepTree('emotion', emotion),
-  // () => renderWideTree('emotion', emotion),
+  () => renderDeepTree('emotion', emotion),
+  () => renderWideTree('emotion', emotion),
   () => renderDeepTree('emotionCSS', emotionCSS),
   () => renderWideTree('emotionCSS', emotionCSS),
   () => renderDeepTree('emotionObjStyle', emotionObjStyle),
@@ -38,11 +39,14 @@ const coreTests = [
   // () => renderWideTree('react-native-web', reactNative)
   // () => renderTweet('glamor', glamor),
   () => renderDeepTree('glamor', glamor),
-  () => renderWideTree('glamor', glamor)
+  () => renderWideTree('glamor', glamor),
+  // () => renderTweet('glamorous', glamorous),
+  () => renderDeepTree('glamorous', glamorous),
+  () => renderWideTree('glamorous', glamorous),
 
   // () => renderTweet('styled-components', styledComponents),
-  // () => renderDeepTree('styled-components', styledComponents),
-  // () => renderWideTree('styled-components', styledComponents)
+  () => renderDeepTree('styled-components', styledComponents),
+  () => renderWideTree('styled-components', styledComponents)
 ]
 
 const fastestTests = [
