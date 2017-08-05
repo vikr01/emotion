@@ -1,6 +1,7 @@
 // import aphrodite from './src/aphrodite'
 // import cssModules from './src/css-modules'
 import emotion from './src/emotion'
+import emotionCSS from './src/emotion-css'
 import glamor from './src/glamor'
 // import jss from './src/jss'
 // import radium from './src/radium'
@@ -20,8 +21,10 @@ const testFastest = window.location.search === '?fastest'
 
 const coreTests = [
   // () => renderTweet('emotion', emotion),
-  () => renderDeepTree('emotion', emotion),
-  () => renderWideTree('emotion', emotion),
+  // () => renderDeepTree('emotion', emotion),
+  // () => renderWideTree('emotion', emotion),
+  () => renderDeepTree('emotionCSS', emotionCSS),
+  () => renderWideTree('emotionCSS', emotionCSS)
   // () => renderTweet('react-native-web', reactNative),
   // () => renderDeepTree('css-modules', cssModules),
   // () => renderWideTree('css-modules', cssModules),
@@ -31,12 +34,12 @@ const coreTests = [
   // () => renderDeepTree('react-native-web', reactNative),
   // () => renderWideTree('react-native-web', reactNative)
   // () => renderTweet('glamor', glamor),
-  () => renderDeepTree('glamor', glamor),
-  () => renderWideTree('glamor', glamor),
+  // () => renderDeepTree('glamor', glamor),
+  // () => renderWideTree('glamor', glamor),
 
   // () => renderTweet('styled-components', styledComponents),
-  () => renderDeepTree('styled-components', styledComponents),
-  () => renderWideTree('styled-components', styledComponents)
+  // () => renderDeepTree('styled-components', styledComponents),
+  // () => renderWideTree('styled-components', styledComponents)
 ]
 
 const fastestTests = [

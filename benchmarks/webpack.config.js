@@ -1,24 +1,25 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
-const path = require('path')
-const webpack = require('webpack')
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   // context: __dirname,
-  entry: './index',
+  devtool: 'source-map',
+  entry: "./index",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'performance.bundle.js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "performance.bundle.js"
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
-            options: { module: true, localIdentName: '[hash:base64:8]' }
+            loader: "css-loader",
+            options: { module: true, localIdentName: "[hash:base64:8]" }
           }
         ]
       },
@@ -26,8 +27,8 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: { plugins: ['babel-macros'], cacheDirectory: true }
+          loader: "babel-loader",
+          options: { plugins: ["babel-macros"], cacheDirectory: true }
         }
       }
     ]
@@ -38,15 +39,15 @@ module.exports = {
     //   openAnalyzer: false
     // }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      "process.env.NODE_ENV": JSON.stringify("production")
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        dead_code: true,
-        screw_ie8: true,
-        warnings: false
-      }
-    })
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     dead_code: true,
+    //     screw_ie8: true,
+    //     warnings: false
+    //   }
+    // })
     // new webpack.optimize.UglifyJsPlugin({
     //   compress: {
     //     dead_code: true,
@@ -60,4 +61,4 @@ module.exports = {
       // 'emotion': path.join(__dirname, '../')
     }
   }
-}
+};
