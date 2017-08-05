@@ -1,9 +1,9 @@
 /coverage
 /demo/dist
-/dist
+dist/
 /lib
 /es
-/node_modules
+node_modules/
 /umd
 /es
 npm-debug.log
