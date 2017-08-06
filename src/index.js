@@ -26,28 +26,17 @@ function register(spec) {
   }
 }
 
-function _getRegistered(rule) {
-  if (isLikeRule(rule)) {
-    let ret = registered[idFor(rule)]
-    if (ret == null) {
-      throw new Error(
-        '[emotion] an unexpected rule cache miss occurred. This is probably a sign of multiple glamor instances in your app. See https://github.com/threepointone/glamor/issues/79'
-      )
-    }
-    return ret
-  }
-  return rule
-}
-
 function buildStyles(objs) {
   let computedClassName = ''
   let objectStyles = []
   // This needs to be moved into the core
+  let index = 0
   forEach(objs, (cls): void => {
     if (typeof cls === 'string') {
       const match = emotionClassRegex.exec(cls)
-      if (match !== null && ruleCache[match[1]] !== undefined) {
-        objectStyles.push(ruleCache[match[1]])
+      if (match !== null && registered[match[1]] !== undefined) {
+        const thing = `$${index++}`
+        objectStyles.push({ [thing]: cls })
       } else {
         computedClassName && (computedClassName += ' ')
         computedClassName += cls
@@ -159,22 +148,19 @@ export function hydrate(ids: string[]) {
   forEach(ids, id => (inserted[id] = true))
 }
 
-type EmotionRule = { [string]: any }
+type EmotionRule = string
 
 type CSSRuleList = Array<EmotionRule>
-
-let cachedCss: (rules: CSSRuleList) => EmotionRule =
-  typeof WeakMap !== 'undefined' ? multiIndexCache(_css) : _css
 
 // 🍩
 // https://github.com/threepointone/glamor
 export function objStyle(...rules: CSSRuleList): EmotionRule {
   rules = clean(rules)
   if (!rules) {
-    return nullrule
+    return 'css-nil'
   }
 
-  return cachedCss(rules)
+  return _css(rules)
 }
 
 function _css(rules) {
@@ -190,24 +176,6 @@ function _css(rules) {
 }
 
 const emotionClassRegex = /css-([a-zA-Z0-9]+)/
-
-// of shape { 'data-css-<id>': '' }
-export function isLikeRule(rule: EmotionRule) {
-  const ruleKeys = keys(rule)
-  if (ruleKeys.length !== 1) {
-    return false
-  }
-  return !!emotionClassRegex.exec(ruleKeys[0])
-}
-
-// extracts id from a { 'css-<id>': ''} like object
-export function idFor(rule: EmotionRule) {
-  const ruleKeys = keys(rule)
-  if (ruleKeys.length !== 1) throw new Error('not a rule')
-  let match = emotionClassRegex.exec(ruleKeys[0])
-  if (!match) throw new Error('not a rule')
-  return match[1]
-}
 
 const parentSelectorRegex = /&/gm
 
@@ -290,25 +258,10 @@ function insert(spec) {
   }
 }
 
-// todo - perf
-let ruleCache = {}
-
 function toRule(spec) {
   register(spec)
   insert(spec)
-  if (ruleCache[spec.id]) {
-    return ruleCache[spec.id]
-  }
-
-  let ret = { [`css-${spec.id}`]: '' }
-  Object.defineProperty(ret, 'toString', {
-    enumerable: false,
-    value() {
-      return 'css-' + spec.id
-    }
-  })
-  ruleCache[spec.id] = ret
-  return ret
+  return 'css-' + spec.id
 }
 
 function isFragment(key) {
@@ -386,13 +339,6 @@ function build(
   }
   src = flatten(src)
   forEach(src, _src => {
-    if (isLikeRule(_src)) {
-      let reg = _getRegistered(_src)
-      if (reg.type !== 'css') {
-        throw new Error('cannot merge this rule')
-      }
-      _src = reg.style
-    }
     _src = clean(_src)
     if (_src && _src.composes) {
       build(dest, { selector, mq, supp, src: _src.composes })
@@ -467,70 +413,4 @@ function build(
       }
     })
   })
-}
-
-let nullrule: EmotionRule = {
-  // 'data-css-nil': ''
-}
-
-Object.defineProperty(nullrule, 'toString', {
-  enumerable: false,
-  value() {
-    return 'css-nil'
-  }
-})
-
-let inputCaches =
-  typeof WeakMap !== 'undefined'
-    ? [nullrule, new WeakMap(), new WeakMap(), new WeakMap()]
-    : [nullrule]
-
-let warnedWeakMapError = false
-
-function multiIndexCache(fn) {
-  return function(args) {
-    if (inputCaches[args.length]) {
-      let coi = inputCaches[args.length]
-      let ctr = 0
-      while (ctr < args.length - 1) {
-        if (!coi.has(args[ctr])) {
-          coi.set(args[ctr], new WeakMap())
-        }
-        coi = coi.get(args[ctr])
-        ctr++
-      }
-      if (coi.has(args[args.length - 1])) {
-        let ret = coi.get(args[ctr])
-
-        if (registered[ret.toString().substring(4)]) {
-          // make sure it hasn't been flushed
-          return ret
-        }
-      }
-    }
-    let value = fn(args)
-    if (inputCaches[args.length]) {
-      let ctr = 0
-      let coi = inputCaches[args.length]
-      while (ctr < args.length - 1) {
-        coi = coi.get(args[ctr])
-        ctr++
-      }
-      try {
-        coi.set(args[ctr], value)
-      } catch (err) {
-        if (
-          (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) &&
-          !warnedWeakMapError
-        ) {
-          warnedWeakMapError = true
-          console.warn('failed setting the WeakMap cache for args:', ...args) // eslint-disable-line no-console
-          console.warn(
-            'this should NOT happen, please file a bug on the github repo.'
-          ) // eslint-disable-line no-console
-        }
-      }
-    }
-    return value
-  }
 }

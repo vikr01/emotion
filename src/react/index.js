@@ -1,5 +1,5 @@
 import { createElement as h } from 'react'
-import { css } from '../index'
+import { css, objStyle } from '../index'
 import { map, reduce, assign, omit } from '../utils'
 import propsRegexString from /* preval */ './props'
 
@@ -55,7 +55,7 @@ export default function(tag, cls, objs, vars = [], content) {
     }
 
     let finalObjs = []
-
+    let finalCls = ''
     push(
       finalObjs,
       reduce(
@@ -65,7 +65,7 @@ export default function(tag, cls, objs, vars = [], content) {
           if (spec.content) {
             accum.push(spec.content.apply(null, map(spec.vars, getValue)))
           }
-          accum.push(spec.cls)
+          finalCls += `${spec.cls} `
           return accum
         },
         []
@@ -76,16 +76,18 @@ export default function(tag, cls, objs, vars = [], content) {
       push(finalObjs, props.className.split(' '))
     }
 
-    const className = css(map(finalObjs, getValue))
-
+    let className = css(map(finalObjs, getValue))
+    if (className === 'css-nil') {
+      className = ''
+    }
     return h(
       localTag,
-      omit(
-        assign({}, props, {
+      assign(
+        {
           ref: props.innerRef,
-          className
-        }),
-        omitFn
+          className: finalCls + className
+        },
+        omit(props, omitFn)
       )
     )
   }

@@ -16,6 +16,9 @@ export function omit(
 export function keys(obj: { [string]: any }) {
   let k: string
   let out: Array<string> = []
+  if (typeof obj === 'string') {
+    throw new Error('lol')
+  }
   for (k in obj) {
     out.push(k)
   }
