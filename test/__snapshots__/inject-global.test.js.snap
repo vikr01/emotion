@@ -1,3 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`injectGlobal 1`] = `"html {background:pink;}html.active {background:red;}body {color:yellow;margin:0px;padding:0px;}"`;
+exports[`injectGlobal composition 1`] = `
+".css-1b6ldud {
+  background-color: hotpink;
+}
+
+html {
+  background: pink;
+}
+
+html.active {
+  color: green;
+  background-color: hotpink;
+}"
+`;
+
+exports[`injectGlobal interpolation 1`] = `
+"body {
+  color: yellow;
+  margin: 0px;
+  padding: 0px;
+}"
+`;
+
+exports[`injectGlobal static 1`] = `
+"html {
+  background: pink;
+}
+
+html.active {
+  background: red;
+}"
+`;

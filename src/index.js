@@ -101,7 +101,9 @@ export function injectGlobal(
   // we don't support nested selectors on objects
   forEach(combined, obj => {
     forEach(keys(obj), selector => {
-      insertRawRule(`${selector} {${createMarkupForStyles(obj[selector])}}`)
+      const styles = {}
+      build(styles, { src: obj[selector] })
+      insertRawRule(deconstructedStyleToCSS(selector, deconstruct(styles)))
     })
   })
 }
@@ -211,18 +213,19 @@ export function idFor(rule: EmotionRule) {
 
 const parentSelectorRegex = /&/gm
 
-function selector(id: string, path: string = '') {
+function selector(id: string, path: string = '', usePrefix: boolean) {
   if (!id) {
     return path.replace(parentSelectorRegex, '')
   }
-  if (!path) return `.css-${id}`
+  let prefix = usePrefix ? '.css-' : ''
+  if (!path) return `${prefix}${id}`
 
   let x = map(
     path.split(','),
     x =>
       x.indexOf('&') >= 0
-        ? x.replace(parentSelectorRegex, `.css-${id}`)
-        : `.css-${id}${x}`
+        ? x.replace(parentSelectorRegex, `${prefix}${id}`)
+        : `${prefix}${id}${x}`
   ).join(',')
 
   return x
@@ -254,26 +257,40 @@ function deconstruct(style) {
   return { plain, selects, medias, supports }
 }
 
-function deconstructedStyleToCSS(id, style) {
+function deconstructedStyleToCSS(id, style, usePrefix) {
   let { plain, selects, medias, supports } = style
   let css = []
 
   if (plain) {
-    css.push(`${selector(id)}{${createMarkupForStyles(plain)}}`)
+    css.push(
+      `${selector(id, undefined, usePrefix)}{${createMarkupForStyles(plain)}}`
+    )
   }
   if (selects) {
     forEach(keys(selects), (key: string) =>
-      css.push(`${selector(id, key)}{${createMarkupForStyles(selects[key])}}`)
+      css.push(
+        `${selector(id, key, usePrefix)}{${createMarkupForStyles(
+          selects[key]
+        )}}`
+      )
     )
   }
   if (medias) {
     forEach(keys(medias), key =>
-      css.push(`${key}{${deconstructedStyleToCSS(id, medias[key]).join('')}}`)
+      css.push(
+        `${key}{${deconstructedStyleToCSS(id, medias[key], usePrefix).join(
+          ''
+        )}}`
+      )
     )
   }
   if (supports) {
     forEach(keys(supports), key =>
-      css.push(`${key}{${deconstructedStyleToCSS(id, supports[key]).join('')}}`)
+      css.push(
+        `${key}{${deconstructedStyleToCSS(id, supports[key], usePrefix).join(
+          ''
+        )}}`
+      )
     )
   }
   return css
@@ -284,7 +301,7 @@ function insert(spec) {
   if (!inserted[spec.id]) {
     inserted[spec.id] = true
     let deconstructed = deconstruct(spec.style)
-    map(deconstructedStyleToCSS(spec.id, deconstructed), cssRule =>
+    map(deconstructedStyleToCSS(spec.id, deconstructed, true), cssRule =>
       sheet.insert(cssRule)
     )
   }

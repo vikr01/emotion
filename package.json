@@ -19,12 +19,12 @@
     "clean": "rimraf dist",
     "test": "npm-run-all -p lint:check coverage test:size",
     "coverage": "jest --coverage --no-cache --ci --runInBand",
-    "lint:check": "eslint .",
+    "lint:check": "eslint . --ext .js --ext .example",
     "test:watch": "jest --watch --no-cache",
     "rollup": "rollup -c && IMPORT=react rollup -c",
     "size": "bundlesize",
     "release": "npm run test && npm run build && npm run rollup && npm version patch && npm publish && git push --tags",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix --ext .js --ext .example"
   },
   "dependencies": {
     "@arr/filter.mutate": "^1.0.0",
