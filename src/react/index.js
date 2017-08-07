@@ -76,15 +76,15 @@ export default function(tag, cls, objs, vars = [], content) {
       push(finalObjs, props.className.split(' '))
     }
 
-    let className = css(map(finalObjs, getValue))
+    const className = css(map(finalObjs, getValue))
     return h(
       localTag,
-      assign(
-        {
+      omit(
+        assign({}, props, {
           ref: props.innerRef,
           className: finalCls + className
-        },
-        omit(props, omitFn)
+        }),
+        omitFn
       )
     )
   }

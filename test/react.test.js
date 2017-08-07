@@ -632,6 +632,21 @@ describe('styled', () => {
 
     expect(tree).toMatchSnapshot()
   })
+  test('composing components wrapped in higher order components', () => {
+    const hoc = Base => props => <Base {...props} />
+    const Heading = hoc(styled.span`background-color: hotpink;`)
+
+    const H1 = hoc(styled(Heading)`
+      font-size: 20px;
+      color: crimson;
+    `)
+
+    const H2 = styled(H1)`font-size:32px;`
+
+    const tree = renderer.create(<H2>hello world</H2>).toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
   test('throws if undefined is passed as the component', () => {
     expect(
       () => styled(undefined)`display: flex;`
