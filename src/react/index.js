@@ -20,7 +20,7 @@ const testOmitPropsOnStringTag = key => reactPropsRegex.test(key)
 const testOmitPropsOnComponent = key => key !== 'theme' && key !== 'innerRef'
 
 export default function(tag, cls, objs, vars = [], content) {
-  if (!tag) {
+  if (tag === undefined) {
     throw new Error(
       'You are trying to create a styled element with an undefined component.\nYou may have forgotten to import it.'
     )
@@ -77,9 +77,6 @@ export default function(tag, cls, objs, vars = [], content) {
     }
 
     let className = css(map(finalObjs, getValue))
-    if (className === 'css-nil') {
-      className = ''
-    }
     return h(
       localTag,
       assign(

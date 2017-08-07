@@ -158,8 +158,8 @@ export function buildStyledCallExpression(identifier, tag, path, state, t) {
     state.insertStaticRules(staticCSSRules)
     return t.callExpression(identifier, [
       tag,
-      t.stringLiteral(`${name}-${hash} ${getComponentId(state)}`),
-      t.arrayExpression([])
+      t.stringLiteral(getComponentId(state)),
+      t.arrayExpression([t.stringLiteral(`${name}-${hash}`)])
     ])
   }
 
