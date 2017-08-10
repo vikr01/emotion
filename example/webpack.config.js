@@ -31,7 +31,7 @@ module.exports = env => {
               }
             }
           })
-        : ['style-loader', { loader: 'css-loader', options: { modules: true } }]
+        : ['style-loader', { loader: 'css-loader', options: { modules: false } }]
     },
     {
       test: /emotion\.css$/,

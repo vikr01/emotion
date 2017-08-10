@@ -1,9 +1,17 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import { withTheme } from 'theming'
-import styled from 'emotion/react'
+import styled, { css } from 'emotion/react'
 import colors from 'open-color'
-import styles from './index.css'
+
+const styles = {
+  markdownContainer: css`
+    display: flex;
+    margin: 16px auto 0 auto; 
+    max-width: 560px;
+    font-family: 'Oxygen';
+  `
+}
 
 const MarkdownContainer = styled('div')`
   composes: ${styles.markdownContainer};

@@ -14,7 +14,7 @@
     "react"
   ],
   "plugins": [
-    ['emotion/babel'],
+    ['emotion/babel', { extractStatic: true }],
     "transform-class-properties"
   ]
 }
