@@ -11,7 +11,7 @@ import { touchSync } from 'touch'
 import { inline, getName } from './inline'
 import { parseCSS } from './parser'
 import { getIdentifierName } from './babel-utils'
-import { hashArray, map } from 'emotion-utils'
+import { hashArray, map, assign } from 'emotion-utils'
 import cssProps from './css-prop'
 import ASTObject from './ast-object'
 
@@ -240,6 +240,13 @@ export default function(babel) {
           state.extractStatic =
             // path.hub.file.opts.filename !== 'unknown' ||
             state.opts.extractStatic
+          state.emotionImportNames = assign({
+            'css': 'css',
+            'styled': 'styled',
+            'keyframes': 'keyframes',
+            'fontFace': 'fontFace',
+            'injectGlobal': 'injectGlobal'
+          }, state.opts.imports)
 
           state.staticRules = []
 
@@ -295,10 +302,10 @@ export default function(babel) {
         try {
           if (
             (t.isCallExpression(path.node.callee) &&
-              path.node.callee.callee.name === 'styled') ||
+              path.node.callee.callee.name === state.emotionImportNames.styled) ||
             (t.isMemberExpression(path.node.callee) &&
               t.isIdentifier(path.node.callee.object) &&
-              path.node.callee.object.name === 'styled')
+              path.node.callee.object.name === state.emotionImportNames.styled)
           ) {
             const identifier = t.isCallExpression(path.node.callee)
               ? path.node.callee.callee
@@ -308,11 +315,11 @@ export default function(babel) {
             )
           }
           if (
-            path.node.callee.name === 'css' &&
+            path.node.callee.name === state.emotionImportNames.css &&
             !path.node.arguments[1] &&
             path.node.arguments[0]
           ) {
-            replaceCssObjectCallExpression(path, t.identifier('css'), t)
+            replaceCssObjectCallExpression(path, path.node.callee, t)
           }
         } catch (e) {
           throw path.buildCodeFrameError(e)
@@ -324,7 +331,7 @@ export default function(babel) {
         if (
           // styled.h1`color:${color};`
           t.isMemberExpression(path.node.tag) &&
-          path.node.tag.object.name === 'styled'
+          path.node.tag.object.name === state.emotionImportNames.styled
         ) {
           path.replaceWith(
             buildStyledCallExpression(
@@ -338,7 +345,7 @@ export default function(babel) {
         } else if (
           // styled('h1')`color:${color};`
           t.isCallExpression(path.node.tag) &&
-          path.node.tag.callee.name === 'styled'
+          path.node.tag.callee.name === state.emotionImportNames.styled
         ) {
           path.replaceWith(
             buildStyledCallExpression(
@@ -350,9 +357,9 @@ export default function(babel) {
             )
           )
         } else if (t.isIdentifier(path.node.tag)) {
-          if (path.node.tag.name === 'css') {
+          if (path.node.tag.name === state.emotionImportNames.css) {
             replaceCssWithCallExpression(path, t.identifier('css'), state, t)
-          } else if (path.node.tag.name === 'keyframes') {
+          } else if (path.node.tag.name === state.emotionImportNames.keyframes) {
             replaceCssWithCallExpression(
               path,
               t.identifier('keyframes'),
@@ -360,7 +367,7 @@ export default function(babel) {
               t,
               (name, hash, src) => `@keyframes ${name}-${hash} { ${src} }`
             )
-          } else if (path.node.tag.name === 'fontFace') {
+          } else if (path.node.tag.name === state.emotionImportNames.fontFace) {
             replaceCssWithCallExpression(
               path,
               t.identifier('fontFace'),
@@ -369,7 +376,7 @@ export default function(babel) {
               (name, hash, src) => `@font-face {${src}}`,
               true
             )
-          } else if (path.node.tag.name === 'injectGlobal') {
+          } else if (path.node.tag.name === state.emotionImportNames.injectGlobal) {
             replaceCssWithCallExpression(
               path,
               t.identifier('injectGlobal'),

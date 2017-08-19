@@ -95,7 +95,7 @@ export default function(path, state, t) {
       }
       return state.cssPropIdentifier
     } else {
-      return t.identifier('css')
+      return t.identifier(state.emotionImportNames.css)
     }
   }
   function createCssTemplateExpression(templateLiteral) {

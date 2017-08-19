@@ -288,6 +288,24 @@ exports[`babel css inline css with float property 1`] = `
 });"
 `;
 
+exports[`babel css inline different name 1`] = `
+"
+const cls1 = /*#__PURE__*/css([], [], function createEmotionStyledRules() {
+  return [{
+    'display': '-webkit-box; display: -ms-flexbox; display: flex'
+  }];
+});
+const cls2 = c({
+  'display': '-webkit-box; display: -ms-flexbox; display: flex'
+});
+const cls3 = css\`
+        display: flex;
+      \`;
+const cls4 = css({
+  display: 'flex'
+});"
+`;
+
 exports[`babel css inline interpolation in selector 1`] = `
 "
 const cls2 = /*#__PURE__*/css([], [className], function createEmotionStyledRules(x0) {

@@ -271,6 +271,35 @@ describe('babel css', () => {
       })
       expect(code).toMatchSnapshot()
     })
+    test('different name', () => {
+      const basic = `
+      const cls1 = c\`
+        display: flex;
+      \`
+      const cls2 = c({
+        display: 'flex'
+      })
+      const cls3 = css\`
+        display: flex;
+      \`
+      const cls4 = css({
+        display: 'flex'
+      })
+    `
+      const { code } = babel.transform(basic, {
+        plugins: [
+          [
+            plugin,
+            {
+              imports: {
+                css: 'c'
+              }
+            }
+          ]
+        ]
+      })
+      expect(code).toMatchSnapshot()
+    })
   })
   describe('extract', () => {
     test('css basic', () => {

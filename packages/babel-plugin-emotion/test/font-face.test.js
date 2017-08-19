@@ -36,6 +36,36 @@ describe('fontFace babel', () => {
       })
       expect(code).toMatchSnapshot()
     })
+    test('different name', () => {
+      const basic = `
+          f\`
+            font-family: MyHelvetica;
+            src: local("Helvetica Neue Bold"),
+                 local("HelveticaNeue-Bold"),
+                 url(MgOpenModernaBold.ttf);
+            font-weight: bold;
+        \`;
+        fontFace\`
+        font-family: MyHelvetica;
+        src: local("Helvetica Neue Bold"),
+             local("HelveticaNeue-Bold"),
+             url(MgOpenModernaBold.ttf);
+        font-weight: bold;
+    \`;`
+      const { code } = babel.transform(basic, {
+        plugins: [
+          [
+            plugin,
+            {
+              imports: {
+                fontFace: 'f'
+              }
+            }
+          ]
+        ]
+      })
+      expect(code).toMatchSnapshot()
+    })
   })
   describe('extract', () => {
     test('basic', () => {
