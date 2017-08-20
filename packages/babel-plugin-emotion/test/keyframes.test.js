@@ -38,6 +38,36 @@ describe('babel keyframes', () => {
       })
       expect(code).toMatchSnapshot()
     })
+    test('different name', () => {
+      const basic = `
+      const rotate360fake = keyframes\`
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      \`;
+        const rotate360 = k\`
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      \`;`
+      const { code } = babel.transform(basic, {
+        plugins: [
+          [
+            plugin,
+            {
+              imports: { keyframes: 'k' }
+            }
+          ]
+        ]
+      })
+      expect(code).toMatchSnapshot()
+    })
   })
   describe('extract', () => {
     test('keyframes basic', () => {

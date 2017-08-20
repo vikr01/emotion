@@ -325,6 +325,15 @@ describe('babel styled component', () => {
       })
       expect(code).toMatchSnapshot()
     })
+    test('different name', () => {
+      const basic = `
+      const fake = styled.h1\`color:blue;\`
+      const real = s.div\`color: hotpink;\``
+      const { code } = babel.transform(basic, {
+        plugins: [[plugin, { imports: { styled: 's' } }]]
+      })
+      expect(code).toMatchSnapshot()
+    })
   })
 
   describe('extract', () => {

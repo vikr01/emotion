@@ -47,6 +47,46 @@ describe('babel injectGlobal', () => {
       })
       expect(code).toMatchSnapshot()
     })
+    test('different name', () => {
+      const basic = `
+      injectGlobal\`
+          body {
+            margin: 0;
+            padding: 0;
+            & > div {
+              display: flex;
+            }
+          }
+          html {
+            background: green;
+          }
+      \`;
+      g\`
+        body {
+          margin: 0;
+          padding: 0;
+          & > div {
+            display: flex;
+          }
+        }
+        html {
+          background: green;
+        }
+      \`;`
+      const { code } = babel.transform(basic, {
+        plugins: [
+          [
+            plugin,
+            {
+              imports: {
+                injectGlobal: 'g'
+              }
+            }
+          ]
+        ]
+      })
+      expect(code).toMatchSnapshot()
+    })
   })
   describe('extract', () => {
     test('injectGlobal basic', () => {

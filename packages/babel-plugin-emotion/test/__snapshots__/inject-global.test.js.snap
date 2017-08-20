@@ -57,6 +57,36 @@ injectGlobal([], [display], function createEmotionStyledRules(x0) {
 });"
 `;
 
+exports[`babel injectGlobal inline different name 1`] = `
+"
+injectGlobal\`
+          body {
+            margin: 0;
+            padding: 0;
+            & > div {
+              display: flex;
+            }
+          }
+          html {
+            background: green;
+          }
+      \`;
+injectGlobal([], [], function createEmotionStyledRules() {
+  return [{
+    \\"body\\": {
+      \\"margin\\": \\"0\\",
+      \\"padding\\": \\"0\\",
+      \\"& > div\\": {
+        \\"display\\": \\"-webkit-box; display: -ms-flexbox; display: flex\\"
+      }
+    },
+    \\"html\\": {
+      \\"background\\": \\"green\\"
+    }
+  }];
+});"
+`;
+
 exports[`babel injectGlobal inline injectGlobal basic 1`] = `
 "
 injectGlobal([], [], function createEmotionStyledRules() {

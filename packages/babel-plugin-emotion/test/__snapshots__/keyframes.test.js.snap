@@ -45,6 +45,30 @@ const rotate360 = /*#__PURE__*/keyframes([], [endingRotation], function createEm
 });"
 `;
 
+exports[`babel keyframes inline different name 1`] = `
+"
+const rotate360fake = keyframes\`
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      \`;
+const rotate360 = /*#__PURE__*/keyframes([], [], function createEmotionStyledRules() {
+  return [{
+    \\"from\\": {
+      \\"WebkitTransform\\": \\"rotate(0deg)\\",
+      \\"transform\\": \\"rotate(0deg)\\"
+    },
+    \\"to\\": {
+      \\"WebkitTransform\\": \\"rotate(360deg)\\",
+      \\"transform\\": \\"rotate(360deg)\\"
+    }
+  }];
+});"
+`;
+
 exports[`babel keyframes inline keyframes basic 1`] = `
 "
 const rotate360 = /*#__PURE__*/keyframes([], [], function createEmotionStyledRules() {

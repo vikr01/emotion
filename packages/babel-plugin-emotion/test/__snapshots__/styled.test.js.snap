@@ -68,6 +68,16 @@ const H1 = /*#__PURE__*/styled('h1', 'css-H1-gzpfex0', [props => {
 });"
 `;
 
+exports[`babel styled component inline different name 1`] = `
+"
+const fake = styled.h1\`color:blue;\`;
+const real = /*#__PURE__*/s(\\"div\\", \\"css-real-1lbzdjt0\\", [], [], function createEmotionStyledRules() {
+      return {
+            \\"color\\": \\"hotpink\\"
+      };
+});"
+`;
+
 exports[`babel styled component inline dynamic fns 1`] = `
 "const Avatar = /*#__PURE__*/styled('img', 'css-Avatar-t98w700', [], [props => props.theme.borderRadius, props => props.theme.borderColor], function createEmotionStyledRules(x0, x1) {
   return {
