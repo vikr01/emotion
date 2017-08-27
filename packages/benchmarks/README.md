@@ -7,8 +7,11 @@ npm run build:performance
 open ./performance/index.html
 ```
 
-Append `?fastest` to the URL to include the fastest "other libraries", and
-`?all` to include all the "other libraries".
+By default the emotion, glamorous and styled-components tests are run. To choose what tests to run add a comma delimited list of benchmarks in the hash of the url.
+```
+file://some/file/path/index.html#emotion,emotionCSS,emotionObjStyle,styled-components,glamor,glamorous
+```
+
 
 ## Notes
 
