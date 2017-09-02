@@ -5,6 +5,8 @@ const path = require('path')
 // need to add a timeout if it never completes
 // needs error handling
 
+// the last benchmark that's run isn't included in the graph for some reason
+
 async function run() {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
@@ -12,6 +14,7 @@ async function run() {
 
   const results = []
   page.on('console', result => {
+    console.log(results)
     if (result && result.name) {
       results.push(result)
     }

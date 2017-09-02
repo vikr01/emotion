@@ -5,6 +5,7 @@ import emotionCSS from './src/emotion-css'
 import emotionObjStyle from './src/emotion-obj-style'
 import glamor from './src/glamor'
 import glamorous from './src/glamorous'
+import newCssInJs from './src/new-css-in-js'
 // import jss from './src/jss'
 // import radium from './src/radium'
 // import reactNative from './src/react-native'
@@ -42,6 +43,10 @@ const allTests = {
   'styled-components': [
     () => renderDeepTree('styled-components', styledComponents),
     () => renderWideTree('styled-components', styledComponents)
+  ],
+  'new-css-in-js': [
+    () => renderDeepTree('new-css-in-js', newCssInJs),
+    () => renderWideTree('new-css-in-js', newCssInJs)
   ]
 }
 
@@ -75,6 +80,7 @@ if (window.location.hash) {
     }
   })
 } else {
+  tests.push(...allTests['new-css-in-js'])
   tests.push(...allTests.emotion)
   tests.push(...allTests.glamorous)
   tests.push(...allTests['styled-components'])
