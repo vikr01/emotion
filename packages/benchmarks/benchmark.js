@@ -1,6 +1,6 @@
 import * as marky from 'marky'
 
-const fmt = time => `${Math.round(time * 100) / 100}ms`
+const fmt = time => Math.round(time * 100) / 100
 
 const measure = (name, fn) => {
   marky.mark(name)
@@ -54,14 +54,15 @@ const benchmark = ({ name, description, setup, teardown, task, runs }) => {
       const formattedMedian = fmt(median(durations))
       const formattedStdDev = fmt(stdDev)
 
-      console.groupCollapsed(`${name}\n${formattedMean} ±${fmt(2 * stdDev)}`)
-      description && console.log(description)
-      console.log(`First: ${formattedFirst}`)
-      console.log(`Median: ${formattedMedian}`)
-      console.log(`Mean: ${formattedMean}`)
-      console.log(`Standard deviation: ${formattedStdDev}`)
-      console.log(durations)
-      console.groupEnd()
+      console.log({
+        name,
+        description,
+        first: formattedFirst,
+        mean: formattedMean,
+        median: formattedMedian,
+        stdDev: formattedStdDev,
+        durations
+      })
       resolve()
     }
 

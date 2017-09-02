@@ -80,4 +80,6 @@ if (window.location.hash) {
   tests.push(...allTests['styled-components'])
 }
 
+tests.push(() => () => Promise.resolve(console.log('done')))
+
 tests.reduce((promise, test) => promise.then(test()), Promise.resolve())

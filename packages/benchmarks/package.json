@@ -22,14 +22,18 @@
   "devDependencies": {
     "babel-loader": "^7.1.1",
     "babel-macros": "^0.5.2",
+    "cli-chart": "^0.3.1",
     "css-loader": "^0.28.4",
+    "puppeteer": "^0.10.1",
+    "pwmetrics": "^3.1.2",
     "react-addons-perf": "^15.6.0-rc.1",
+    "serve": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.4.1",
     "webpack-bundle-analyzer": "^2.9.0"
   },
   "scripts": {
-    "start": "webpack && open index.html",
-    "benchmark": "npm run start"
+    "build": "webpack",
+    "benchmark": "npm run build && node run-headless.js"
   }
 }
