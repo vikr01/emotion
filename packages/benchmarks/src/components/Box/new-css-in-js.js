@@ -1,5 +1,5 @@
 import styled from 'react-new-css-in-js'
-import View from '../View/styled-components'
+import View from '../View/new-css-in-js'
 
 const getColor = color => {
   switch (color) {
