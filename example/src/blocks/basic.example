@@ -1,14 +1,8 @@
-const Heading = styled('h1')`
+const Heading = styled('h1')``
 
-`
+const Link = styled('a')``
 
-const Link = styled('a')`
-
-`
-
-const Paragraph = styled('p')`
-
-`
+const Paragraph = styled('p')``
 
 const Code = styled('code')`
   font-family: monospace;
@@ -16,7 +10,7 @@ const Code = styled('code')`
   color: ${colors.gray[8]};
   background-color: ${colors.gray[0]};
   padding: 1px;
-  
+
   p & {
     font-size: 0.99rem;
   }
@@ -73,6 +67,5 @@ render(
         )
       }
     }}
-  />,
-  mountNode
+  />
 )

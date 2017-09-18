@@ -4,7 +4,8 @@ import { withTheme } from 'theming'
 import styled from 'emotion/react'
 import colors from 'open-color'
 import styles from './index.css'
-
+import Playground from '../playground'
+import { scope } from '../main'
 const MarkdownContainer = styled('div')`
   composes: ${styles.markdownContainer};
 
@@ -89,6 +90,17 @@ export default ({ markdown }) => {
           Paragraph,
           Code,
           CodeBlock: props => {
+            if (['javascript', 'js', 'jsx'].indexOf(props.language) !== -1) {
+              return (
+                <Playground
+                  maxHeight={180}
+                  noRender={false}
+                  codeText={props.literal}
+                  scope={scope}
+                />
+              )
+            }
+
             return (
               <CodeBlock key={props.nodeKey} className={props.className}>
                 <Code>{props.literal}</Code>

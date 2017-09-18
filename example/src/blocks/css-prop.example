@@ -1,7 +1,8 @@
 const flexCenter = css`
   display: flex;
   align-items: center;
-  justify-content: center;`
+  justify-content: center;
+`
 
 render(
   <div
@@ -25,6 +26,5 @@ render(
     `}
   >
     <img src={logoUrl} />
-  </div>,
-  mountNode
+  </div>
 )

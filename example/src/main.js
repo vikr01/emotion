@@ -1,7 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { ThemeProvider, withTheme } from 'theming'
-import styled, { css, fontFace, keyframes, injectGlobal } from 'emotion/react'
+import styled from 'react-emotion'
+import { css, fontFace, keyframes, injectGlobal } from 'emotion'
 import Markdown from './markdown'
 import Playground from './playground'
 import logoUrl from '../../emotion.png'
@@ -16,6 +17,27 @@ const keyframesExample = require('./blocks/keyframes.example')
 // const fontFaceExample = require('./blocks/font-face.example')
 // const docMarkdown = require('./docs/index.md')
 // const readmeMarkdown = require('../../README.md')
+
+export const scope = {
+  logoUrl,
+  React,
+  css,
+  keyframes,
+  styled,
+  ThemeProvider,
+  withTheme,
+  require(name) {
+    switch (name) {
+      case 'emotion':
+        return require('emotion')
+      case 'emotion/react':
+      case 'react-emotion':
+        return require('react-emotion')
+      case 'theming':
+        return require('theming')
+    }
+  }
+}
 
 injectGlobal`
   html, body {
@@ -65,7 +87,7 @@ const margin = (t, r, b, l) => {
   `
 }
 
-const PlaygroundWrapper = styled('div')`
+const PlaygroundWrapper = styled.div`
   font-family: 'Oxygen', sans-serif;
   flex: 1;
   color: #343a40;
@@ -113,16 +135,7 @@ class App extends React.Component {
             <Playground
               noRender={false}
               codeText={introExample}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/install.md')} />
@@ -132,16 +145,7 @@ class App extends React.Component {
               maxHeight={180}
               noRender={false}
               codeText={nestedExample}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/pseudo.md')} />
@@ -149,16 +153,7 @@ class App extends React.Component {
               maxHeight={220}
               noRender={false}
               codeText={pseudoExample}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/media.md')} />
@@ -166,12 +161,7 @@ class App extends React.Component {
               maxHeight={220}
               noRender={false}
               codeText={mediaExample}
-              scope={{
-                logoUrl,
-                React,
-                styled,
-                render
-              }}
+              scope={scope}
             />
 
             <Markdown
@@ -181,32 +171,14 @@ class App extends React.Component {
               maxHeight={220}
               noRender={false}
               codeText={anyComponentExample}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/props.md')} />
             <Playground
               noRender={false}
               codeText={propsExample}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/keyframes.md')} />
@@ -214,16 +186,7 @@ class App extends React.Component {
               maxHeight={600}
               noRender={false}
               codeText={keyframesExample}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/composes.md')} />
@@ -231,16 +194,7 @@ class App extends React.Component {
               maxHeight={180}
               noRender={false}
               codeText={require('./blocks/composes.example')}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/objects.md')} />
@@ -248,16 +202,7 @@ class App extends React.Component {
               maxHeight={180}
               noRender={false}
               codeText={require('./blocks/objects.example')}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/styled-with-object.md')} />
@@ -265,13 +210,7 @@ class App extends React.Component {
               maxHeight={180}
               noRender={false}
               codeText={require('./blocks/styled-with-object.example')}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                styled,
-                render
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/css-prop.md')} />
@@ -279,13 +218,7 @@ class App extends React.Component {
               maxHeight={180}
               noRender={false}
               codeText={require('./blocks/css-prop.example')}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                styled,
-                render
-              }}
+              scope={scope}
             />
 
             <Markdown markdown={require('../../docs/theming.md')} />
@@ -293,16 +226,7 @@ class App extends React.Component {
               maxHeight={180}
               noRender={false}
               codeText={require('./blocks/theming.example')}
-              scope={{
-                logoUrl,
-                React,
-                css,
-                keyframes,
-                styled,
-                render,
-                ThemeProvider,
-                withTheme
-              }}
+              scope={scope}
             />
           </div>
         </PlaygroundWrapper>

@@ -1,13 +1,11 @@
-/* eslint-disable jsx-quotes */
 // https://raw.githubusercontent.com/FormidableLabs/component-playground/master/src/components/playground.jsx
 /* eslint no-unused-vars:0 */
-// import 'babel-polyfill'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Editor from 'component-playground/lib/components/editor'
 import Preview from '../preview'
 import { css } from 'emotion'
-import styled from 'emotion/react'
+import styled from 'react-emotion'
 import colors from 'open-color'
 
 const dracula = css`
