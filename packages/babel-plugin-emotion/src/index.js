@@ -196,6 +196,7 @@ export function buildStyledCallExpression(identifier, tag, path, state, t) {
 }
 
 export function buildStyledObjectCallExpression(path, state, identifier, t) {
+  path.addComment('leading', '#__PURE__')
   const tag = t.isCallExpression(path.node.callee)
     ? path.node.callee.arguments[0]
     : t.stringLiteral(path.node.callee.property.name)
@@ -325,6 +326,13 @@ export default function(babel) {
             path.replaceWith(
               buildStyledObjectCallExpression(path, state, identifier, t)
             )
+          }
+          if (
+            t.isIdentifier(path.node.callee) &&
+            (path.node.callee.name === state.importedNames.css ||
+              path.node.callee.name === state.importedNames.keyframes)
+          ) {
+            path.addComment('leading', '#__PURE__')
           }
         } catch (e) {
           throw path.buildCodeFrameError(e)
