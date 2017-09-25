@@ -9,7 +9,7 @@ const pkg = require(path.resolve(process.cwd(), './package.json'))
 
 const config = {
   entry: './src/index.js',
-  external: ['react', 'emotion', 'emotion-utils'],
+  external: ['react', 'emotion', 'emotion-utils', 'prop-types'],
   exports: 'named',
   sourceMap: true,
   plugins: [
@@ -39,7 +39,7 @@ const config = {
 }
 
 if (process.env.UMD) {
-  config.external = ['react']
+  config.external = ['react', 'prop-types']
   config.globals = { react: 'React' }
   config.plugins.push(
     alias({
@@ -65,7 +65,7 @@ if (process.env.UMD) {
 
 if (pkg.name === 'preact-emotion') {
   config.entry = '../react-emotion/src/index.js'
-  config.external = ['preact', 'emotion-utils', 'emotion']
+  config.external = ['preact', 'emotion-utils', 'emotion', 'prop-types']
   config.plugins.unshift(alias({ react: 'preact' }))
 }
 

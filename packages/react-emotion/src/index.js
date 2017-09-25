@@ -1,7 +1,7 @@
 /* global codegen */
 import { createElement, Component } from 'react'
-import { themeListener } from 'theming'
 import { memoize } from 'emotion-utils'
+import PropTypes from 'prop-types'
 import { css, getRegisteredStyles } from 'emotion'
 
 export * from 'emotion'
@@ -24,6 +24,8 @@ const omitAssign = function(testFn, target) {
   }
   return target
 }
+
+const CHANNEL = '__THEMING__'
 
 export default function(tag, options: { e: string }) {
   if (process.env.NODE_ENV !== 'production') {
@@ -59,25 +61,35 @@ export default function(tag, options: { e: string }) {
     }
 
     class Styled extends Component {
-      constructor(props, context) {
-        super(props, context)
-        this.state = { theme: themeListener.initial(context) }
-        this.setTheme = theme => this.setState({ theme })
+      componentWillMount() {
+        if (this.context[CHANNEL]) {
+          this.setState({ theme: this.context[CHANNEL].getState() })
+        }
       }
+
       componentDidMount() {
-        this.unsubscribe = themeListener.subscribe(this.context, this.setTheme)
+        if (this.context[CHANNEL]) {
+          this.unsubscribe = this.context[CHANNEL].subscribe(this.setTheme)
+        }
       }
+
       componentWillUnmount() {
         if (typeof this.unsubscribe === 'function') {
           this.unsubscribe()
         }
       }
+      setTheme = theme => this.setState({ theme })
+
       render() {
         const { props, state, context } = this
-        const mergedProps = {
-          ...props,
-          theme: state.theme
+        let mergedProps = props
+        if (state && state.theme) {
+          mergedProps = {
+            ...props,
+            theme: state.theme || {}
+          }
         }
+
         const getValue = v => {
           if (typeof v === 'function') {
             return v(mergedProps, context)
@@ -110,7 +122,7 @@ export default function(tag, options: { e: string }) {
         )
       }
     }
-    Styled.contextTypes = themeListener.contextTypes
+    Styled.contextTypes = { [CHANNEL]: PropTypes.object }
 
     Styled.__emotion_styles = styles
     Styled.__emotion_base = baseTag
