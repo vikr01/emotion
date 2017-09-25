@@ -1,5 +1,6 @@
 /* global codegen */
-import { createElement } from 'react'
+import { createElement, Component } from 'react'
+import { themeListener } from 'theming'
 import { memoize } from 'emotion-utils'
 import { css, getRegisteredStyles } from 'emotion'
 
@@ -57,35 +58,59 @@ export default function(tag, options: { e: string }) {
       }
     }
 
-    const Styled = (props, context) => {
-      const getValue = v => {
-        if (typeof v === 'function') {
-          return v(props, context)
-        }
-        return v
+    class Styled extends Component {
+      constructor(props, context) {
+        super(props, context)
+        this.state = { theme: themeListener.initial(context) }
+        this.setTheme = theme => this.setState({ theme })
       }
+      componentDidMount() {
+        this.unsubscribe = themeListener.subscribe(this.context, this.setTheme)
+      }
+      componentWillUnmount() {
+        if (typeof this.unsubscribe === 'function') {
+          this.unsubscribe()
+        }
+      }
+      render() {
+        const { props, state, context } = this
+        const mergedProps = {
+          ...props,
+          theme: state.theme
+        }
+        const getValue = v => {
+          if (typeof v === 'function') {
+            return v(mergedProps, context)
+          }
+          return v
+        }
 
-      let className = ''
-      let classInterpolations = []
+        let className = ''
+        let classInterpolations = []
 
-      if (props.className) {
+        if (props.className) {
+          if (staticClassName === false) {
+            className += getRegisteredStyles(
+              classInterpolations,
+              props.className
+            )
+          } else {
+            className += `${props.className} `
+          }
+        }
         if (staticClassName === false) {
-          className += getRegisteredStyles(classInterpolations, props.className)
+          className += css(...styles.map(getValue), ...classInterpolations)
         } else {
-          className += `${props.className} `
+          className += staticClassName
         }
-      }
-      if (staticClassName === false) {
-        className += css(...styles.map(getValue), ...classInterpolations)
-      } else {
-        className += staticClassName
-      }
 
-      return createElement(
-        baseTag,
-        omitAssign(omitFn, {}, props, { className, ref: props.innerRef })
-      )
+        return createElement(
+          baseTag,
+          omitAssign(omitFn, {}, props, { className, ref: props.innerRef })
+        )
+      }
     }
+    Styled.contextTypes = themeListener.contextTypes
 
     Styled.__emotion_styles = styles
     Styled.__emotion_base = baseTag

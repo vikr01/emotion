@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "babel-plugin-emotion": "^8.0.2-5",
-    "emotion-utils": "^8.0.2-3"
+    "emotion-utils": "^8.0.2-3",
+    "theming": "^1.1.0"
   },
   "peerDependencies": {
     "emotion": "^8.0.2-5"
