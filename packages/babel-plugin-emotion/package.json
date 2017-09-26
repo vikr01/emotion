@@ -23,7 +23,7 @@
     "touch": "^1.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "babel-cli": "v7.0.0-beta.2",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1"
   },
