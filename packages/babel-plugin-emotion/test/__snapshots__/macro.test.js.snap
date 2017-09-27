@@ -55,7 +55,8 @@ const rotate360 = /*#__PURE__*/_keyframes('from{transform:rotate(0deg);}to{trans
 `;
 
 exports[`babel macro multiple imports 1`] = `
-"import { keyframes as _keyframes, css as _css } from '../src';
+"import { css as _css } from '../src';
+import { keyframes as _keyframes } from '../src';
 
 const rotate360 = /*#__PURE__*/_keyframes('from{transform:rotate(0deg);}to{transform:rotate(360deg);}');
 const thing = /*#__PURE__*/_css('margin:12px 48px;color:#ffffff;display:flex;flex:1 0 auto;color:blue;width:', widthVar, ';');"
@@ -74,17 +75,17 @@ const someCls = /*#__PURE__*/_css('display:flex;');"
 `;
 
 exports[`babel macro styled object function 1`] = `
-"import _styled from './styled';
+"import _default from './styled';
 
-const SomeComponent = /*#__PURE__*/_styled('div')({
+const SomeComponent = /*#__PURE__*/_default('div')({
   display: 'flex'
 });"
 `;
 
 exports[`babel macro styled object member 1`] = `
-"import _styled from './styled';
+"import _default from './styled';
 
-const SomeComponent = /*#__PURE__*/_styled('div')({
+const SomeComponent = /*#__PURE__*/_default('div')({
   display: 'flex'
 });"
 `;
@@ -96,13 +97,13 @@ const someOtherVar = _thisDoesNotExist;"
 `;
 
 exports[`babel macro styled tagged template literal function 1`] = `
-"import _styled from './styled';
+"import _default from './styled';
 
-const SomeComponent = /*#__PURE__*/_styled('div')('display:flex;');"
+const SomeComponent = /*#__PURE__*/_default('div')('display:flex;');"
 `;
 
 exports[`babel macro styled tagged template literal member 1`] = `
-"import _styled from './styled';
+"import _default from './styled';
 
-const SomeComponent = /*#__PURE__*/_styled('div')('display:flex;');"
+const SomeComponent = /*#__PURE__*/_default('div')('display:flex;');"
 `;

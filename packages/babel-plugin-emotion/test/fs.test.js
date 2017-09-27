@@ -1,4 +1,4 @@
-import { transform } from 'babel-core'
+import { transform, version } from 'babel-core'
 import fs from 'fs'
 import touch from 'touch'
 import plugin from 'babel-plugin-emotion'
@@ -24,6 +24,9 @@ filenameArr.push('emotion', 'css')
 const cssFilename = filenameArr.join('.')
 
 describe('babel plugin fs', () => {
+  test('running tests on correct babel version', () => {
+    expect(version).toMatchSnapshot()
+  })
   test('creates and writes to the css file when it does not exist', () => {
     fs.existsSync.mockReturnValueOnce(false)
     const { code } = transform(basic, {

@@ -1,10 +1,10 @@
-import { replaceCssWithCallExpression } from './index'
-import { buildMacroRuntimeNode } from './babel-utils'
+import { replaceCssWithCallExpression } from '../index'
+import { buildMacroRuntimeNode } from '../babel-utils'
 import { createMacro } from 'babel-macros'
 
 module.exports = createMacro(macro)
 
-function macro({ references, state, babel: { types: t } }) {
+export function macro({ references, state, babel: { types: t } }) {
   Object.keys(references).forEach(referenceKey => {
     let isPure = true
     switch (referenceKey) {

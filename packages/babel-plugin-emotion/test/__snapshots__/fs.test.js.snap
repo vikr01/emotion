@@ -14,6 +14,8 @@ exports[`babel plugin fs does not write to the css file when it is the same as i
 \\"css-1yfv4zm\\";"
 `;
 
+exports[`babel plugin fs running tests on correct babel version 1`] = `"6.26.0"`;
+
 exports[`babel plugin fs writes to the css file when it does exist  1`] = `".css-1yfv4zm{margin:12px 48px;color:#ffffff;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex:1 0 auto;-ms-flex:1 0 auto;flex:1 0 auto;color:blue;name:class;}"`;
 
 exports[`babel plugin fs writes to the css file when it does exist  2`] = `
