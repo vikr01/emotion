@@ -18,38 +18,9 @@ export function getRuntimeImportPath(path, t) {
 
 export function buildMacroRuntimeNode(path, state, importName, t) {
   const runtimeImportPath = getRuntimeImportPath(path, t)
-  if (state.emotionImports === undefined) state.emotionImports = {}
-  if (state.emotionImports[runtimeImportPath] === undefined) {
-    state.emotionImports[runtimeImportPath] = {}
-  }
-  if (state.emotionImports[runtimeImportPath][importName] === undefined) {
-    state.emotionImports[runtimeImportPath][
-      importName
-    ] = path.scope.generateUidIdentifier(path.node.name)
-  }
-  return state.emotionImports[runtimeImportPath][importName]
+  return state.file.addImport(runtimeImportPath, importName)
 }
 
-export function addRuntimeImports(state, t) {
-  if (state.emotionImports === undefined) return
-  Object.keys(state.emotionImports).forEach(importPath => {
-    const importSpecifiers = []
-    Object.keys(state.emotionImports[importPath]).forEach(importName => {
-      const identifier = state.emotionImports[importPath][importName]
-      if (importName === 'default') {
-        importSpecifiers.push(t.importDefaultSpecifier(identifier))
-      } else {
-        importSpecifiers.push(
-          t.importSpecifier(identifier, t.identifier(importName))
-        )
-      }
-    })
-    state.file.path.node.body.unshift(
-      t.importDeclaration(importSpecifiers, t.stringLiteral(importPath))
-    )
-  })
-  state.emotionImports = undefined
-}
 export function getName(identifierName?: string, prefix: string): string {
   const parts = []
   parts.push(prefix)

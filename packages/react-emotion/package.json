@@ -24,6 +24,10 @@
     "emotion": "^8.0.2-7"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "cross-env": "^5.0.5",
     "emotion": "^8.0.2-7",
     "npm-run-all": "^4.0.2",

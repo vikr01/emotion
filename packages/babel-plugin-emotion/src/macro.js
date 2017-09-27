@@ -1,5 +1,5 @@
 import { replaceCssWithCallExpression } from './index'
-import { buildMacroRuntimeNode, addRuntimeImports } from './babel-utils'
+import { buildMacroRuntimeNode } from './babel-utils'
 import { createMacro } from 'babel-macros'
 
 module.exports = createMacro(macro)
@@ -50,5 +50,4 @@ function macro({ references, state, babel: { types: t } }) {
       }
     }
   })
-  addRuntimeImports(state, t)
 }
