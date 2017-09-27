@@ -1,4 +1,18 @@
-require('babel-register')
+require('babel-register')({
+  presets: [
+    [
+      'env',
+      {
+        loose: true,
+        exclude: ['transform-es2015-typeof-symbol']
+      }
+    ],
+    'stage-0',
+    'react',
+    'flow'
+  ],
+  babelrc: false
+})
 const path = require('path')
 require('module-alias').addAliases({
   'emotion-utils': path.join(__dirname, '../../../emotion-utils/src'),
