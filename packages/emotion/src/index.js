@@ -120,7 +120,7 @@ function handleInterpolation(
   if (
     interpolation === undefined ||
     interpolation === null ||
-    interpolation === false
+    typeof value === 'boolean'
   ) {
     return ''
   }
@@ -182,7 +182,7 @@ function createStringFromObject(obj) {
           )};`
         }
       } else {
-        string += `${key}{${createStringFromObject(obj[key])}}`
+        string += `${key}{${handleInterpolation(obj[key])}}`
       }
     })
   }
@@ -198,10 +198,7 @@ function isLastCharDot(string) {
 function createStyles(strings, ...interpolations) {
   let stringMode = true
   let styles = ''
-  if (
-    (strings !== undefined && strings.raw === undefined) ||
-    strings === undefined
-  ) {
+  if (strings == null || strings === undefined || strings.raw === undefined) {
     stringMode = false
     styles = handleInterpolation(strings, false)
   } else {
