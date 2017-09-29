@@ -10,7 +10,7 @@ describe('babel macro', () => {
         \`
       `
       const { code } = babel.transform(basic, {
-        plugins: ['babel-macros'],
+        plugins: [require('babel-macros')],
         filename: __filename,
         babelrc: false
       })
@@ -24,7 +24,7 @@ describe('babel macro', () => {
         \`
       `
       const { code } = babel.transform(basic, {
-        plugins: ['babel-macros'],
+        plugins: [require('babel-macros')],
         filename: __filename,
         babelrc: false
       })
@@ -38,7 +38,7 @@ describe('babel macro', () => {
       })
     `
       const { code } = babel.transform(basic, {
-        plugins: ['babel-macros'],
+        plugins: [require('babel-macros')],
         filename: __filename,
         babelrc: false
       })
@@ -52,7 +52,7 @@ describe('babel macro', () => {
       })
     `
       const { code } = babel.transform(basic, {
-        plugins: ['babel-macros'],
+        plugins: [require('babel-macros')],
         filename: __filename,
         babelrc: false
       })
@@ -64,7 +64,7 @@ describe('babel macro', () => {
       const someOtherVar = thisDoesNotExist
       `
       const { code } = babel.transform(basic, {
-        plugins: ['babel-macros'],
+        plugins: [require('babel-macros')],
         filename: __filename,
         babelrc: false
       })
@@ -78,7 +78,7 @@ describe('babel macro', () => {
       \`
       `
       const { code } = babel.transform(basic, {
-        plugins: ['babel-macros'],
+        plugins: [require('babel-macros')],
         filename: __filename,
         babelrc: false
       })
@@ -93,7 +93,7 @@ describe('babel macro', () => {
       `
       expect(() =>
         babel.transform(basic, {
-          plugins: ['babel-macros'],
+          plugins: [require('babel-macros')],
           filename: __filename,
           babelrc: false
         })
@@ -102,7 +102,7 @@ describe('babel macro', () => {
   })
   test('injectGlobal', () => {
     const basic = `
-    import { injectGlobal } from '../src/macro'
+    import { injectGlobal } from '../../babel-plugin-emotion/src/macro'
     injectGlobal\`
       body {
         margin: 0;
@@ -128,7 +128,7 @@ describe('babel macro', () => {
       }
   \`;`
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -136,7 +136,7 @@ describe('babel macro', () => {
   })
   test('fontFace', () => {
     const basic = `
-    import { fontFace } from '../src/macro'
+    import { fontFace } from '../../babel-plugin-emotion/src/macro'
     fontFace\`
     font-family: MyHelvetica;
     src: local("Helvetica Neue Bold"),
@@ -145,7 +145,7 @@ describe('babel macro', () => {
     font-weight: bold;
     \`;`
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -153,7 +153,7 @@ describe('babel macro', () => {
   })
   test('css', () => {
     const basic = `
-    import { css } from '../src/macro'
+    import { css } from '../../babel-plugin-emotion/src/macro'
     css\`
       margin: 12px 48px;
       color: #ffffff;
@@ -163,7 +163,7 @@ describe('babel macro', () => {
       width: \${widthVar};
   \``
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -171,11 +171,11 @@ describe('babel macro', () => {
   })
   test('css object', () => {
     const basic = `
-    import { css } from '../src/macro'
+    import { css } from '../../babel-plugin-emotion/src/macro'
     const cls1 = css({ display: 'flex' })
     `
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -183,11 +183,11 @@ describe('babel macro', () => {
   })
   test('hydrate', () => {
     const basic = `
-    import { hydrate } from '../src/macro'
+    import { hydrate } from '../../babel-plugin-emotion/src/macro'
     const someOtherVar = hydrate
     `
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -195,11 +195,11 @@ describe('babel macro', () => {
   })
   test('flush', () => {
     const basic = `
-    import { flush } from '../src/macro'
+    import { flush } from '../../babel-plugin-emotion/src/macro'
     const someOtherVar = flush
     `
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -207,11 +207,11 @@ describe('babel macro', () => {
   })
   test('css call with no args', () => {
     const basic = `
-    import { css } from '../src/macro'
+    import { css } from '../../babel-plugin-emotion/src/macro'
     const cls1 = css()
     `
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -219,7 +219,7 @@ describe('babel macro', () => {
   })
   test('css inside of css', () => {
     const basic = `
-    import { css } from '../src/macro'
+    import { css } from '../../babel-plugin-emotion/src/macro'
     const cls2 = css\`
       font-size: 20px;
       @media (min-width: 420px) {
@@ -234,7 +234,7 @@ describe('babel macro', () => {
     \`
     `
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -242,11 +242,11 @@ describe('babel macro', () => {
   })
   test('some import that does not exist', () => {
     const basic = `
-    import { thisDoesNotExist } from '../src/macro'
+    import { thisDoesNotExist } from '../../babel-plugin-emotion/src/macro'
     const someOtherVar = thisDoesNotExist
     `
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -254,7 +254,7 @@ describe('babel macro', () => {
   })
   test('keyframes', () => {
     const basic = `
-    import { keyframes } from '../src/macro'
+    import { keyframes } from '../../babel-plugin-emotion/src/macro'
     const rotate360 = keyframes\`
     from {
       transform: rotate(0deg);
@@ -264,7 +264,7 @@ describe('babel macro', () => {
     }
   \``
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
@@ -272,7 +272,7 @@ describe('babel macro', () => {
   })
   test('multiple imports', () => {
     const basic = `
-    import { keyframes, css } from '../src/macro'
+    import { keyframes, css } from '../../babel-plugin-emotion/src/macro'
     const rotate360 = keyframes\`
     from {
       transform: rotate(0deg);
@@ -291,7 +291,7 @@ describe('babel macro', () => {
 \`
   `
     const { code } = babel.transform(basic, {
-      plugins: ['babel-macros'],
+      plugins: [require('babel-macros')],
       filename: __filename,
       babelrc: false
     })
