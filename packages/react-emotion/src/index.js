@@ -6,6 +6,21 @@ import { channel, contextTypes } from '../../emotion-theming/src/utils'
 
 export * from 'emotion'
 
+function setTheme(theme) {
+  this.setState({ theme })
+}
+
+function componentWillMount() {
+  if (this.context[channel] !== undefined) {
+    this.unsubscribe = this.context[channel].subscribe(setTheme.bind(this))
+  }
+}
+function componentWillUnmount() {
+  if (this.unsubscribe !== undefined) {
+    this.context[channel].unsubscribe(this.unsubscribe)
+  }
+}
+
 const reactPropsRegex = codegen`module.exports = require('./props')`
 const testOmitPropsOnStringTag = memoize(key => reactPropsRegex.test(key))
 const testOmitPropsOnComponent = key => key !== 'theme' && key !== 'innerRef'
@@ -62,23 +77,10 @@ const createStyled = (tag, options: { e: string }) => {
     }
 
     class Styled extends Component {
-      componentWillMount() {
-        if (this.context[channel] !== undefined) {
-          this.unsubscribe = this.context[channel].subscribe(this.setTheme)
-        }
-      }
-
-      componentWillUnmount() {
-        if (this.unsubscribe !== undefined) {
-          this.context[channel].unsubscribe(this.unsubscribe)
-        }
-      }
-      setTheme = theme => this.setState({ theme })
-
       render() {
         const { props, state, context } = this
         let mergedProps = props
-        if (state && state.theme) {
+        if (state !== null && state.theme) {
           mergedProps = omitAssign(testAlwaysTrue, {}, props, {
             theme: state.theme || {}
           })
@@ -116,8 +118,9 @@ const createStyled = (tag, options: { e: string }) => {
         )
       }
     }
+    Styled.prototype.componentWillMount = componentWillMount
+    Styled.prototype.componentWillUnmount = componentWillUnmount
     Styled.contextTypes = contextTypes
-
     Styled.__emotion_styles = styles
     Styled.__emotion_base = baseTag
     Styled.__emotion_real = Styled
