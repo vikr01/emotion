@@ -24,7 +24,6 @@
     "emotion-utils": "^8.0.2-7"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
     "cross-env": "^5.0.5",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
