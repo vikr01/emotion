@@ -32,7 +32,7 @@ module.exports = {
           options: {
             babelrc: false,
             presets: [['env', { modules: false }], 'react', 'stage-0'],
-            plugins: ['babel-macros'],
+            plugins: ['module:babel-macros'],
             cacheDirectory: true
           }
         }
