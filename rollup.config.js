@@ -35,7 +35,7 @@ const config = {
         'react',
         'flow'
       ],
-      plugins: ['codegen', 'external-helpers'],
+      plugins: ['module:babel-macros', 'external-helpers'],
       babelrc: false
     }),
     cjs()
@@ -73,7 +73,7 @@ if (process.env.UMD) {
 
 if (pkg.name === 'preact-emotion') {
   config.entry = '../react-emotion/src/index.js'
-  config.external = ['preact', 'emotion-utils', 'emotion']
+  config.external = ['preact', 'emotion-utils', 'emotion', 'prop-types']
   config.plugins.unshift(alias({ react: 'preact' }))
 }
 

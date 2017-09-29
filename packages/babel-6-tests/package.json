@@ -1,0 +1,24 @@
+{
+  "name": "babel-6-tests",
+  "private": true,
+  "version": "8.0.2-7",
+  "description": "babel-plugin-emotion tests for babel 6",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "touch": "^3.1.0"
+  },
+  "author": "Kye Hohenberger",
+  "homepage": "https://github.com/tkh44/emotion#readme",
+  "license": "MIT",
+  "repository": "https://github.com/tkh44/emotion/tree/master/packages/babel-plugin-emotion",
+  "keywords": [
+    "styles",
+    "emotion",
+    "react",
+    "css",
+    "css-in-js"
+  ],
+  "bugs": {
+    "url": "https://github.com/tkh44/emotion/issues"
+  }
+}

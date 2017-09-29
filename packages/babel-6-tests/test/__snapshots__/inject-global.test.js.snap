@@ -2,6 +2,7 @@
 
 exports[`babel injectGlobal extract injectGlobal assign to variable 1`] = `
 "import \\"./inject-global.test.emotion.css\\";
+
 const thisWillBeUndefined = undefined;"
 `;
 
@@ -9,16 +10,21 @@ exports[`babel injectGlobal extract injectGlobal assign to variable 2`] = `"body
 
 exports[`babel injectGlobal extract injectGlobal basic 1`] = `
 "import \\"./inject-global.test.emotion.css\\";
+
 undefined;"
 `;
 
 exports[`babel injectGlobal extract injectGlobal basic 2`] = `"body{margin:0;padding:0;}body > div{display:none;}html{background:green;}"`;
 
-exports[`babel injectGlobal extract injectGlobal with interpolation 1`] = `"injectGlobal(\\"body{margin:0;padding:0;display:\\", display, \\";& > div{display:none;}}html{background:green;}\\");"`;
+exports[`babel injectGlobal extract injectGlobal with interpolation 1`] = `
+"
+injectGlobal(\\"body{margin:0;padding:0;display:\\", display, \\";& > div{display:none;}}html{background:green;}\\");"
+`;
 
 exports[`babel injectGlobal inline dynamic change import 1`] = `
-"import { injectGlobal as inject } from 'emotion';
-inject(\\"body{margin:0;padding:0;& > div{display:flex;}}html{background:green;}\\");
+"
+import { injectGlobal as inject } from 'emotion';
+inject('body{margin:0;padding:0;& > div{display:flex;}}html{background:green;}');
 injectGlobal\`
         body {
           margin: 0;
@@ -33,12 +39,19 @@ injectGlobal\`
       \`;"
 `;
 
-exports[`babel injectGlobal inline injectGlobal basic 1`] = `"injectGlobal(\\"body{margin:0;padding:0;& > div{display:flex;}}html{background:green;}\\");"`;
+exports[`babel injectGlobal inline injectGlobal basic 1`] = `
+"
+injectGlobal(\\"body{margin:0;padding:0;& > div{display:flex;}}html{background:green;}\\");"
+`;
 
-exports[`babel injectGlobal inline injectGlobal with interpolation 1`] = `"injectGlobal(\\"body{margin:0;padding:0;display:\\", display, \\";& > div{display:none;}}html{background:green;}\\");"`;
+exports[`babel injectGlobal inline injectGlobal with interpolation 1`] = `
+"
+injectGlobal(\\"body{margin:0;padding:0;display:\\", display, \\";& > div{display:none;}}html{background:green;}\\");"
+`;
 
 exports[`babel injectGlobal inline static change import 1`] = `
-"inject(\\"body{margin:0;padding:0;& > div{display:flex;}}html{background:green;}\\");
+"
+inject(\\"body{margin:0;padding:0;& > div{display:flex;}}html{background:green;}\\");
 injectGlobal\`
         body {
           margin: 0;

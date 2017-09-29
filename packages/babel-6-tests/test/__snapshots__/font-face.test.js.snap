@@ -2,6 +2,7 @@
 
 exports[`fontFace babel extract basic 1`] = `
 "import \\"./font-face.test.emotion.css\\";
+
 undefined;"
 `;
 
@@ -9,18 +10,26 @@ exports[`fontFace babel extract basic 2`] = `"@font-face{font-family:MyHelvetica
 
 exports[`fontFace babel extract basic assign to variable 1`] = `
 "import \\"./font-face.test.emotion.css\\";
+
 const thisWillBeUndefined = undefined;"
 `;
 
 exports[`fontFace babel extract basic assign to variable 2`] = `"@font-face{font-family:MyHelvetica;src:local(\\"Helvetica Neue Bold\\"), local(\\"HelveticaNeue-Bold\\"), url(MgOpenModernaBold.ttf);font-weight:bold;}"`;
 
-exports[`fontFace babel extract interpolation 1`] = `"fontFace(\\"font-family:\\", fontFamilyName, \\";src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");"`;
+exports[`fontFace babel extract interpolation 1`] = `
+"
+fontFace(\\"font-family:\\", fontFamilyName, \\";src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");"
+`;
 
-exports[`fontFace babel inline basic 1`] = `"fontFace(\\"font-family:MyHelvetica;src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");"`;
+exports[`fontFace babel inline basic 1`] = `
+"
+fontFace(\\"font-family:MyHelvetica;src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");"
+`;
 
 exports[`fontFace babel inline dynamic change import 1`] = `
-"import { fontFace as f } from 'emotion';
-f(\\"font-family:MyHelvetica;src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");
+"
+import { fontFace as f } from 'emotion';
+f('font-family:MyHelvetica;src:local(\\"Helvetica Neue Bold\\"),local(\\"HelveticaNeue-Bold\\"),url(MgOpenModernaBold.ttf);font-weight:bold;');
 fontFace\`
           font-family: MyHelvetica;
           src: local(\\"Helvetica Neue Bold\\"),
@@ -30,10 +39,14 @@ fontFace\`
       \`;"
 `;
 
-exports[`fontFace babel inline interpolation 1`] = `"fontFace(\\"font-family:\\", fontFamilyName, \\";src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");"`;
+exports[`fontFace babel inline interpolation 1`] = `
+"
+fontFace(\\"font-family:\\", fontFamilyName, \\";src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");"
+`;
 
 exports[`fontFace babel inline static change import 1`] = `
-"f(\\"font-family:MyHelvetica;src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");
+"
+f(\\"font-family:MyHelvetica;src:local(\\\\\\"Helvetica Neue Bold\\\\\\"),local(\\\\\\"HelveticaNeue-Bold\\\\\\"),url(MgOpenModernaBold.ttf);font-weight:bold;\\");
 fontFace\`
           font-family: MyHelvetica;
           src: local(\\"Helvetica Neue Bold\\"),
