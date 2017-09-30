@@ -191,10 +191,6 @@ function createStringFromObject(obj) {
   return string
 }
 
-function isLastCharDot(string) {
-  return string.charCodeAt(string.length - 1) === 46 // .
-}
-
 function createStyles(strings, ...interpolations) {
   let stringMode = true
   let styles = ''
@@ -205,7 +201,10 @@ function createStyles(strings, ...interpolations) {
     styles = strings[0]
   }
   interpolations.forEach((interpolation, i) => {
-    styles += handleInterpolation(interpolation, isLastCharDot(styles))
+    styles += handleInterpolation(
+      interpolation,
+      styles.charCodeAt(styles.length - 1) === 46
+    )
     if (stringMode === true && strings[i + 1] !== undefined) {
       styles += strings[i + 1]
     }
