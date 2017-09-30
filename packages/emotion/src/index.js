@@ -104,13 +104,18 @@ function insertionPlugin(
 stylis.use(insertionPlugin)
 
 function flatten(inArr) {
-  let arr = []
-  inArr.forEach(val => {
-    if (Array.isArray(val)) arr = arr.concat(flatten(val))
-    else arr = arr.concat(val)
-  })
+  return flat(inArr, [])
+}
 
-  return arr
+function flat(arr, res) {
+  let i = 0
+  let cur
+  let len = arr.length
+  for (; i < len; i++) {
+    cur = arr[i]
+    Array.isArray(cur) ? flat(cur, res) : res.push(cur)
+  }
+  return res
 }
 
 function handleInterpolation(interpolation: any) {
