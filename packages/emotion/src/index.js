@@ -114,20 +114,19 @@ function flatten(inArr) {
 }
 
 function handleInterpolation(interpolation: any) {
-  if (
-    interpolation === undefined ||
-    interpolation === null ||
-    typeof interpolation === 'boolean'
-  ) {
+  if (interpolation == null) {
     return ''
   }
-
-  if (typeof interpolation === 'function') {
-    return handleInterpolation(interpolation())
-  }
-
-  if (typeof interpolation === 'object') {
-    return createStringFromObject(interpolation)
+  switch (typeof interpolation) {
+    case 'boolean': {
+      return ''
+    }
+    case 'function': {
+      return handleInterpolation(interpolation())
+    }
+    case 'object': {
+      return createStringFromObject(interpolation)
+    }
   }
 
   if (registered[interpolation] !== undefined) {
