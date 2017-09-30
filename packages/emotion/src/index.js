@@ -187,9 +187,10 @@ function createStringFromObject(obj) {
 
 function createStyles() {
   let styles = ''
-  for (const lol in arguments) {
-    if (isNaN(lol)) return
-    styles += handleInterpolation(arguments[lol])
+  let i = 0
+  let length = arguments.length
+  for (; i < length; i++) {
+    styles += handleInterpolation(arguments[i])
   }
   return styles
 }
