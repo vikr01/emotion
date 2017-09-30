@@ -185,22 +185,12 @@ function createStringFromObject(obj) {
   return string
 }
 
-function createStyles(strings, ...interpolations) {
-  let stringMode = true
+function createStyles() {
   let styles = ''
-  if (strings == null || strings.raw === undefined) {
-    stringMode = false
-    styles = handleInterpolation(strings)
-  } else {
-    styles = strings[0]
+  for (const lol in arguments) {
+    if (isNaN(lol)) return
+    styles += handleInterpolation(arguments[lol])
   }
-  interpolations.forEach((interpolation, i) => {
-    styles += handleInterpolation(interpolation)
-    if (stringMode === true && strings[i + 1] !== undefined) {
-      styles += strings[i + 1]
-    }
-  })
-
   return styles
 }
 

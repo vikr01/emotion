@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer'
 import { css } from 'emotion'
 import styled from 'react-emotion'
 
-describe('css', () => {
+describe.skip('css', () => {
   test('random expression', () => {
     const cls2 = css`
       font-size: 20px;
