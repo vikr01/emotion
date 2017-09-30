@@ -113,10 +113,7 @@ function flatten(inArr) {
   return arr
 }
 
-function handleInterpolation(
-  interpolation: any,
-  couldBeSelectorInterpolation: boolean
-) {
+function handleInterpolation(interpolation: any) {
   if (
     interpolation === undefined ||
     interpolation === null ||
@@ -133,10 +130,7 @@ function handleInterpolation(
     return createStringFromObject(interpolation)
   }
 
-  if (
-    couldBeSelectorInterpolation === false &&
-    registered[interpolation] !== undefined
-  ) {
+  if (registered[interpolation] !== undefined) {
     return registered[interpolation]
   }
   return interpolation
@@ -168,7 +162,7 @@ function createStringFromObject(obj) {
 
   if (Array.isArray(obj)) {
     flatten(obj).forEach(interpolation => {
-      string += handleInterpolation(interpolation, false)
+      string += handleInterpolation(interpolation)
     })
   } else {
     Object.keys(obj).forEach(key => {
@@ -191,21 +185,17 @@ function createStringFromObject(obj) {
   return string
 }
 
-function isLastCharDot(string) {
-  return string.charCodeAt(string.length - 1) === 46 // .
-}
-
 function createStyles(strings, ...interpolations) {
   let stringMode = true
   let styles = ''
   if (strings == null || strings.raw === undefined) {
     stringMode = false
-    styles = handleInterpolation(strings, false)
+    styles = handleInterpolation(strings)
   } else {
     styles = strings[0]
   }
   interpolations.forEach((interpolation, i) => {
-    styles += handleInterpolation(interpolation, isLastCharDot(styles))
+    styles += handleInterpolation(interpolation)
     if (stringMode === true && strings[i + 1] !== undefined) {
       styles += strings[i + 1]
     }

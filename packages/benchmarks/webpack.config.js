@@ -6,7 +6,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   // context: __dirname,
-  // devtool: 'eval',
+  devtool: 'inline-source-map',
   entry: './index',
   output: {
     path: path.resolve(__dirname, 'dist'),
