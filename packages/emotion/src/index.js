@@ -34,14 +34,12 @@ export function flush() {
 
 let currentSourceMap = ''
 let queue = []
-let orphans = {}
 
 function insertNode(node) {
-  console.log('node', node)
   if (node.children) {
-    // console.log('children', node.children)
+    node.children.forEach(insertNode)
   }
-  // sheet.insert(rule, currentSourceMap)
+  sheet.insert(node.ruleText, currentSourceMap)
 }
 
 function Node(id, name, value, rule, parent, ruleText) {
@@ -64,7 +62,8 @@ function insertionPlugin(
   length,
   id
 ) {
-  let index, name, value, node, type, deli, size
+  let node
+  let size
   let rule = selectors.join(',')
   let parent = parents.join(',')
   switch (context) {
@@ -74,86 +73,32 @@ function insertionPlugin(
     }
 
     case -2: {
-      // console.log('queue', queue.reverse())
-      queue.forEach((styleNode) => {
-        console.log(styleNode.name)
-        insertNode(styleNode)
-        if (orphans[styleNode.name]) {
-          orphans[styleNode.name].forEach((orphanNode) => {
-            insertNode(orphanNode)
-            if (orphans[orphanNode.name]) {
-              orphans[orphanNode.name].forEach(insertNode)
-            }
-          })
-        }
-      })
+      size = queue.length
+      while (size--) {
+        insertNode(queue[size])
+      }
 
       break
     }
 
-    case 1:
-      // content.charCodeAt(0) !== 64
-      //   ? ((deli = ':'), (type = 'decl'))
-      //   : ((deli = ' '), (rule = null), (type = '@at-rule'))
-      // if (content.charCodeAt(0) === 64) {
-      //   deli = ' '
-      //   rule = null
-      //   type = '@at-rule'
-      //
-      //   index = content.indexOf(deli)
-      //   name = content.substring(0, index)
-      //   value = content.substring(index + 1).trim()
-      //   node = new Node(
-      //     id,
-      //     name,
-      //     value,
-      //     type,
-      //     rule,
-      //     parent,
-      //     `${rule || ''}{${content}}`
-      //   )
-      //
-      //   queue.push(node)
-      // }
-
-      break
-
     case 2: {
-      // console.log('id', id)
-      console.log('parent', parent)
-      // console.log('selectors', selectors)
-      // console.log('joined selectors', rule)
-      // console.log('content', content)
-      console.log(`${rule}{${content}}`)
+      if (id === 0) {
+        node = new Node(
+          id,
+          rule,
+          selectors,
+          rule,
+          parent,
+          `${rule}{${content}}`
+        )
+        size = queue.length
+        while (size--)
+          if (queue[size].rule === rule)
+            node.children.push(queue.splice(size, 1)[0])
 
-      node = new Node(
-        id,
-        rule,
-        selectors,
-        'rule',
-        parent,
-        `${rule}{${content}}`
-      )
-
-      if (parent) {
-        if (!orphans[parent]) {
-          orphans[parent] = []
-        }
-        orphans[parent].push(node)
-        console.log('orphans[parent]', orphans[parent])
-      } else {
         queue.push(node)
       }
 
-      // if (id === 0) {
-      //   const out = `${rule}{${content}}`
-      //   const joinedParents = parent.join(',')
-      //   if (joinedParents === out || parent[0] === '') {
-      //     queue.push(out)
-      //   } else {
-      //     queue.unshift(out)
-      //   }
-      // }
       break
     }
     // after an at rule block
@@ -166,11 +111,6 @@ function insertionPlugin(
         parent,
         `${rule}{${content}}`
       )
-      console.log('queue after at rule', queue)
-      size = queue.length
-      while (size--)
-        if (queue[size].id === id) node.children.push(queue.splice(size, 1)[0])
-
       queue.push(node)
       break
 
@@ -342,14 +282,14 @@ if (process.env.NODE_ENV !== 'production') {
 
 export function css() {
   const styles = createStyles.apply(this, arguments)
-  console.log(styles)
   const hash = hashString(styles)
   const cls = `css-${hash}`
-  console.log(cls)
   if (registered[cls] === undefined) {
     registered[cls] = styles
   }
   if (inserted[hash] === undefined) {
+    console.log(styles)
+
     stylis(`.${cls}`, styles)
     inserted[hash] = true
   }
