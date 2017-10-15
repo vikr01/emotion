@@ -1,19 +1,18 @@
 import { createElement as h, Component } from 'react'
 import { css, keyframes, merge } from 'emotion'
+import omit from 'lodash.omit' // forgive me
 
 export default class Animate extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      cls: css()
+      cls: css(),
+      prevStyle:
+        typeof props.to === 'function'
+          ? props.to(this.props, this.context)
+          : props.to
     }
-
-    this.styleEntries = Object.entries(props.styles)
-    this.prevStyle =
-      typeof props.style === 'function'
-        ? props.style(this.props, this.context)
-        : props.style
   }
 
   componentWillMount() {
@@ -25,34 +24,52 @@ export default class Animate extends Component {
   }
 
   updateStyles = props => {
-    const nextStyleEntries = Object.entries(props.style)
+    if (!props.to) {
+      return
+    }
+    const styleEntries = Object.entries(this.props.to || {})
+    const nextStyleEntries = Object.entries(props.to || {})
     if (
       nextStyleEntries.some(
         ([key, value], i) =>
-          this.styleEntries[i][0] !== key || this.styleEntries[i][1] !== value
+          styleEntries[i] &&
+          (styleEntries[i][0] !== key || styleEntries[i][1] !== value)
       )
     ) {
-      const { style: styleProp, duration, timing } = props
+      const {
+        to: toProp,
+        direction = 'normal',
+        duration = '200ms',
+        timing = 'ease',
+        fillMode = 'forwards'
+      } = props
       const style =
-        typeof styleProp === 'function'
-          ? styleProp(this.props, this.context)
-          : styleProp
+        typeof toProp === 'function' ? toProp(this.props, this.context) : toProp
 
       const name = keyframes({
-        from: this.prevStyle,
+        from: Object.assign({}, this.state.prevStyle),
         to: style
       })
 
       this.setState({
         cls: css(
+          ...this.state.prevStyle,
           { animationName: name },
-          duration && { animationDuration: duration },
-          timing && { animationTimingFunction: timing }
-        )
+          duration && {
+            animationDuration: duration
+          },
+          timing && {
+            animationTimingFunction: timing
+          },
+          direction && {
+            animationDirection: direction
+          },
+          fillMode && {
+            animationFillMode: fillMode
+          }
+        ),
+        prevStyle: style
       })
-
-      this.prevStyle = style
-      this.styleEntries = nextStyleEntries
     }
   }
 
@@ -61,9 +78,20 @@ export default class Animate extends Component {
     const { className, tag } = this.props
     return h(
       tag,
-      Object.assign({}, this.props, {
-        className: merge([className, cls].filter(Boolean).join(' '))
-      })
+      Object.assign(
+        {},
+        omit(this.props, [
+          'className',
+          'tag',
+          'to',
+          'direction',
+          'fillMode',
+          'timing'
+        ]),
+        {
+          className: merge([className, cls].filter(Boolean).join(' '))
+        }
+      )
     )
   }
 }
