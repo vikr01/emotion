@@ -21,38 +21,39 @@ export default class Animate extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const nextStyleEntries = Object.entries(nextProps.styles)
+    this.updateStyles(nextProps)
+  }
+
+  updateStyles = props => {
+    const nextStyleEntries = Object.entries(props.style)
     if (
       nextStyleEntries.some(
         ([key, value], i) =>
           this.styleEntries[i][0] !== key || this.styleEntries[i][1] !== value
       )
     ) {
+      const { style: styleProp, duration, timing } = props
+      const style =
+        typeof styleProp === 'function'
+          ? styleProp(this.props, this.context)
+          : styleProp
+
+      const name = keyframes({
+        from: this.prevStyle,
+        to: style
+      })
+
+      this.setState({
+        cls: css(
+          { animationName: name },
+          duration && { animationDuration: duration },
+          timing && { animationTimingFunction: timing }
+        )
+      })
+
+      this.prevStyle = style
       this.styleEntries = nextStyleEntries
-      this.updateStyles(nextProps)
     }
-  }
-
-  updateStyles = props => {
-    const { style: styleProp, duration, timing } = props
-    const style =
-      typeof styleProp === 'function'
-        ? styleProp(this.props, this.context)
-        : styleProp
-
-    const name = keyframes({
-      from: this.prevStyle,
-      to: style
-    })
-
-    this.setState({
-      cls: css(
-        { animationName: name },
-        duration && { animationDuration: duration },
-        timing && { animationTimingFunction: timing }
-      )
-    })
-    this.prevStyle = style
   }
 
   render() {
