@@ -86,6 +86,9 @@
   "directories": {
     "test": "tests"
   },
+  "bolt": {
+    "workspaces": ["packages/*"]
+  },
   "keywords": [
     "styles",
     "emotion",
