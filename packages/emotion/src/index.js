@@ -2,21 +2,37 @@ import { hashString, Stylis, memoize, unitless } from 'emotion-utils'
 import stylisRuleSheet from 'stylis-rule-sheet'
 import StyleSheet from './sheet'
 
-export const sheet = new StyleSheet()
+const context =
+  typeof global !== 'undefined'
+    ? global
+    : typeof window !== 'undefined' ? window : {}
 
-// 🚀
-sheet.inject()
-const stylisOptions = { keyframe: false }
+let emotion = context.__SECRET_EMOTION__
 
-if (process.env.NODE_ENV !== 'production') {
-  stylisOptions.compress = false
+if (context.__SECRET_EMOTION__ === undefined) {
+  const stylisOptions = { keyframe: false }
+
+  if (process.env.NODE_ENV !== 'production') {
+    stylisOptions.compress = false
+  }
+  context.__SECRET_EMOTION__ = emotion = {
+    registered: {},
+    inserted: {},
+    sheet: new StyleSheet(),
+    externalStylisPlugins: [],
+    stylis: new Stylis(stylisOptions)
+  }
+  // 🚀
+  emotion.sheet.inject()
 }
 
-let stylis = new Stylis(stylisOptions)
+let stylis = emotion.stylis
 
-const externalStylisPlugins = []
+export let registered = emotion.registered
 
-const use = stylis.use
+export let inserted = emotion.inserted
+
+export const sheet = emotion.sheet
 
 function insertRule(rule) {
   sheet.insert(rule, currentSourceMap)
@@ -25,13 +41,9 @@ function insertRule(rule) {
 const insertionPlugin = stylisRuleSheet(insertRule)
 
 export const useStylisPlugin = plugin => {
-  externalStylisPlugins.push(plugin)
-  use(null)(externalStylisPlugins)(insertionPlugin)
+  emotion.externalStylisPlugins.push(plugin)
+  emotion.stylis.use(null)(emotion.externalStylisPlugins)(insertionPlugin)
 }
-
-export let registered = {}
-
-export let inserted = {}
 
 let currentSourceMap = ''
 
@@ -272,7 +284,7 @@ export function hydrate(ids) {
 
 export function flush() {
   sheet.flush()
-  inserted = {}
-  registered = {}
+  emotion.inserted = inserted = {}
+  emotion.registered = registered = {}
   sheet.inject()
 }
