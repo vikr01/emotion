@@ -367,4 +367,11 @@ describe('css', () => {
     expect(tree).toMatchSnapshot()
     expect(sheet).toMatchSnapshot()
   })
+  test('object fallback', () => {
+    const cls1 = css({
+      display: ['block', 'flex']
+    })
+    const tree = renderer.create(<div className={cls1} />).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 })

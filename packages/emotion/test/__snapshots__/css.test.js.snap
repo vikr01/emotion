@@ -448,6 +448,20 @@ exports[`css null value 2`] = `
 />
 `;
 
+exports[`css object fallback 1`] = `
+.glamor-0 {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+<div
+  className="glamor-0"
+/>
+`;
+
 exports[`css random expression 1`] = `
 .glamor-0 {
   font-size: 20px;

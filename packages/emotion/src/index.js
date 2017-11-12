@@ -84,6 +84,10 @@ const processStyleValue = (key, value) => {
 
 const objectToStringCache = new WeakMap()
 
+const colonRegex = /:/
+
+const hasColon = memoize(string => colonRegex.test(string))
+
 function createStringFromObject(obj) {
   if (objectToStringCache.has(obj)) {
     return objectToStringCache.get(obj)
@@ -106,7 +110,14 @@ function createStringFromObject(obj) {
           )};`
         }
       } else {
-        string += `${key}{${handleInterpolation.call(this, obj[key], false)}}`
+        const result = handleInterpolation.call(this, obj[key], false)
+        if (Array.isArray(obj[key]) && hasColon(result) === false) {
+          obj[key].forEach(value => {
+            string += `${key}:${value};`
+          })
+        } else {
+          string += `${key}{${result}}`
+        }
       }
     }, this)
   }
