@@ -62,15 +62,17 @@ class Preview extends Component {
   _compileCode = () => {
     const { code, scope } = this.props
     return `(function (${Object.keys(scope).join(',')}, render) {
-      ${transform(code, {
-        presets: ['es2015', 'react', 'stage-1'],
-        plugins: [
-          [
-            'babel-plugin-emotion',
-            { autoImportCssProp: false, sourceMap: true }
+      ${
+        transform(code, {
+          presets: ['es2015', 'react', 'stage-1'],
+          plugins: [
+            [
+              'babel-plugin-emotion',
+              { autoImportCssProp: false, sourceMap: true }
+            ]
           ]
-        ]
-      }).code}
+        }).code
+      }
     })`
   }
 
