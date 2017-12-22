@@ -9120,13 +9120,35 @@ styled-components@^2.2.1:
     stylis "^3.2.1"
     supports-color "^3.2.3"
 
+styled-components@^2.4.0-0:
+  version "2.4.0-0"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.4.0-0.tgz#d3c6f879c0b8a6d10ed184ad12da4c6625e0c12b"
+  dependencies:
+    buffer "^5.0.3"
+    css-to-react-native "^2.0.3"
+    fbjs "^0.8.9"
+    hoist-non-react-statics "^1.2.0"
+    is-plain-object "^2.0.1"
+    prop-types "^15.5.4"
+    stylis "^3.4.0"
+    stylis-rule-sheet "^0.0.6"
+    supports-color "^3.2.3"
+
 stylis-rule-sheet@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/stylis-rule-sheet/-/stylis-rule-sheet-0.0.5.tgz#ebae935cc1f6fb31b9b62dba47f2ea8b833dad9f"
 
+stylis-rule-sheet@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/stylis-rule-sheet/-/stylis-rule-sheet-0.0.6.tgz#059f89125a8e8db546e8adb0e07c4b4bcb81911b"
+
 stylis@^3.2.1, stylis@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.3.2.tgz#95ef285836e98243f8b8f64a9a72706ea6c893ea"
+
+stylis@^3.4.0:
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.4.5.tgz#d7b9595fc18e7b9c8775eca8270a9a1d3e59806e"
 
 supports-color@^2.0.0:
   version "2.0.0"

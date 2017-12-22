@@ -12,9 +12,9 @@ import renderSierpinskiTriangle from './tests/renderSierpinskiTriangle'
 
 const allTests = {
   emotion: [
-    () => renderSierpinskiTriangle('emotion', emotion),
-    () => renderDeepTree('emotion', emotion),
-    () => renderWideTree('emotion', emotion)
+    () => renderSierpinskiTriangle('emotion', emotion)
+    // () => renderDeepTree('emotion', emotion),
+    // () => renderWideTree('emotion', emotion)
   ],
   emotionCSS: [
     () => renderDeepTree('emotionCSS', emotionCSS),
@@ -25,17 +25,18 @@ const allTests = {
     () => renderWideTree('emotionObj', emotionObj)
   ],
   glamor: [
-    () => renderSierpinskiTriangle('glamor', glamor),
-    () => renderDeepTree('glamor', glamor),
-    () => renderWideTree('glamor', glamor)
+    () => renderSierpinskiTriangle('glamor', glamor)
+    // () => renderDeepTree('glamor', glamor),
+    // () => renderWideTree('glamor', glamor)
   ],
   glamorous: [
     () => renderDeepTree('glamorous', glamorous),
     () => renderWideTree('glamorous', glamorous)
   ],
   'styled-components': [
-    () => renderDeepTree('styled-components', styledComponents),
-    () => renderWideTree('styled-components', styledComponents)
+    () => renderSierpinskiTriangle('styled-components', styledComponents)
+    // () => renderDeepTree('styled-components', styledComponents),
+    // () => renderWideTree('styled-components', styledComponents)
   ],
   'css-modules': [
     () => renderDeepTree('css-modules', cssModules),
@@ -58,12 +59,12 @@ if (window.location.hash) {
     })
 } else {
   tests.push(...allTests.emotion)
-  tests.push(...allTests.emotionObj)
-  tests.push(...allTests.emotionCSS)
-  tests.push(...allTests['css-modules'])
-  tests.push(...allTests.glamorous)
-  tests.push(...allTests.glamor)
   tests.push(...allTests['styled-components'])
+  tests.push(...allTests.glamor)
+  // tests.push(...allTests['css-modules'])
+  // tests.push(...allTests.emotionObj)
+  // tests.push(...allTests.emotionCSS)
+  // tests.push(...allTests.glamorous)
 }
 
 tests.push(() => () => Promise.resolve(console.log('done')))
