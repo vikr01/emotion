@@ -104,10 +104,7 @@ function createEmotionStyled(emotion: Emotion, view: ReactType) {
             }
           }
           if (staticClassName === undefined) {
-            className += emotion.css.apply(
-              this,
-              styles.concat(classInterpolations)
-            )
+            className += emotion.css.call(this, styles, classInterpolations)
           } else {
             className += staticClassName
           }
