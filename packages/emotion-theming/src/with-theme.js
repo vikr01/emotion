@@ -1,22 +1,27 @@
 // @flow
-import * as React from 'react'
+// @jsx ReactLike.createElement
+
+import typeof ReactType from 'react'
+import type { ComponentType } from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import { channel, contextTypes } from './utils'
 
 type Props = { theme: Object }
 
-const withTheme = (Component: React.ComponentType<Props>) => {
-  const componentName = Component.displayName || Component.name || 'Component'
-
-  class WithTheme extends React.Component<{}, { theme: Object }> {
+export const createWithTheme = (ReactLike: ReactType) => (
+  Component: ComponentType<Props>
+) => {
+  class WithTheme extends ReactLike.Component<{}, { theme: Object }> {
     unsubscribeId: number
     componentWillMount() {
       const themeContext = this.context[channel]
       if (themeContext === undefined) {
-        // eslint-disable-next-line no-console
-        console.error(
-          '[withTheme] Please use ThemeProvider to be able to use withTheme'
-        )
+        if (process.env.NODE_ENV !== 'production') {
+          // eslint-disable-next-line no-console
+          console.error(
+            '[withTheme] Please use ThemeProvider to be able to use withTheme'
+          )
+        }
         return
       }
       this.unsubscribeId = themeContext.subscribe(theme => {
@@ -31,13 +36,14 @@ const withTheme = (Component: React.ComponentType<Props>) => {
     }
 
     render() {
+      // eslint-disable-next-line react/react-in-jsx-scope
       return <Component theme={this.state.theme} {...this.props} />
     }
   }
-  WithTheme.displayName = `WithTheme(${componentName})`
+  WithTheme.displayName = `WithTheme(${Component.displayName ||
+    Component.name ||
+    'Component'})`
   WithTheme.contextTypes = contextTypes
 
   return hoistNonReactStatics(WithTheme, Component)
 }
-
-export default withTheme

@@ -11,7 +11,7 @@ import {
   minify
 } from './babel-utils'
 import type {
-  BabelPath as _BabelPath,
+  // BabelPath as _BabelPath,
   Identifier,
   BabelPluginPass,
   Types,
@@ -24,9 +24,9 @@ import { addSourceMaps } from './source-map'
 import cssProps from './css-prop'
 import ASTObject from './ast-object'
 
-export type BabelPath = _BabelPath & {
-  node: *
-}
+export type BabelPath = any // _BabelPath & {
+// node: *
+// }
 
 export function hashArray(arr: Array<string>) {
   return hashString(arr.join(''))

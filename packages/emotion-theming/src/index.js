@@ -1,4 +1,4 @@
 // @flow
-export { default as ThemeProvider } from './theme-provider'
-export { default as withTheme } from './with-theme'
-export { channel, contextTypes } from './utils'
+export { createThemeProvider } from './theme-provider'
+export { createWithTheme } from './with-theme'
+export { SECRET_CHANNEL, contextTypes } from './utils'

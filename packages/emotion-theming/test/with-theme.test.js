@@ -1,3 +1,4 @@
+// @flow
 import createBroadcast from '../src/create-broadcast'
 import { mount, shallow } from 'enzyme'
 import React, { Component } from 'react'
@@ -39,7 +40,7 @@ test(`withTheme(Comp) should include wrapped stateless component's name in the d
 })
 
 test(`withTheme(Comp) should include wrapped stateful component's name in the displayName`, () => {
-  class StatefullComp extends Component {
+  class StatefullComp extends Component<*> {
     render() {
       return <div {...this.props} />
     }
@@ -175,7 +176,7 @@ test(`withTheme(Comp) receives theme updates even through PureComponent`, () => 
 })
 
 test(`withTheme(Comp) hoists non-react static class properties`, () => {
-  class ExampleComponent extends Component {
+  class ExampleComponent extends Component<*> {
     static displayName = 'foo'
     static someSpecialStatic = 'bar'
   }
