@@ -3,7 +3,8 @@ import createBroadcast from '../src/create-broadcast'
 import { mount } from 'enzyme'
 import React, { Component } from 'react'
 
-import { channel, ThemeProvider } from 'emotion-theming'
+import { channel } from 'emotion-theming'
+import { ThemeProvider } from 'react-emotion'
 import {
   getChannel,
   Trap,
@@ -42,7 +43,7 @@ test(`ThemeProvider should unsubscribe on unmounting`, () => {
 
 test(`ThemeProvider should throw if theme is not a plain object`, () => {
   jest.spyOn(console, 'error').mockImplementation(() => {})
-
+  // $FlowFixMe
   expect(() => mount(<ThemeProvider theme={false} />)).toThrow()
   expect(console.error).toHaveBeenCalled()
 })

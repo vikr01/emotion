@@ -1,8 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-import styled, { css, cx } from 'react-emotion'
+import styled, { css, cx, ThemeProvider, withTheme } from 'react-emotion'
 import Live, { compile, Editor, ErrorBoundary } from './live'
-import { ThemeProvider, withTheme } from 'emotion-theming'
 import Box from '../components/Box'
 import { openColors as colors, fonts } from '../utils/style'
 import '../utils/highlight-css'

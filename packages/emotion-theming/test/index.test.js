@@ -2,7 +2,7 @@
 import { mount } from 'enzyme'
 import enyzmeToJSON from 'enzyme-to-json'
 import React from 'react'
-import styled from 'react-emotion'
+import { channel } from 'emotion-theming'
 
 import {
   Trap,
@@ -11,7 +11,7 @@ import {
   getInterceptor,
   getChannel
 } from './test-helpers'
-import { channel, ThemeProvider, withTheme } from 'emotion-theming'
+import styled, { ThemeProvider, withTheme } from 'react-emotion'
 
 test(`theming default channel`, () => {
   const defaultChannel = channel

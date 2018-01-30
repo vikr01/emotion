@@ -6,7 +6,7 @@ import styled, { css, flush } from './emotion-instance'
 // eslint-disable-next-line import/no-duplicates
 import * as emotion from './emotion-instance'
 import { createSerializer } from 'jest-emotion'
-import { ThemeProvider } from 'emotion-theming'
+import { ThemeProvider } from 'react-emotion'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import { mount } from 'enzyme'
 import enzymeToJson from 'enzyme-to-json'

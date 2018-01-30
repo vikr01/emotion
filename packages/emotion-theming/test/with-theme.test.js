@@ -2,7 +2,8 @@
 import createBroadcast from '../src/create-broadcast'
 import { mount, shallow } from 'enzyme'
 import React, { Component } from 'react'
-import { channel, withTheme } from 'emotion-theming'
+import { withTheme } from 'react-emotion'
+import { channel } from 'emotion-theming'
 import {
   getChannel,
   StatelessComp,
