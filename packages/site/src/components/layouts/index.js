@@ -1,16 +1,16 @@
 // @flow
-import '../utils/make-prism-manual'
-import globalStyles from '../utils/global'
+import '../../utils/make-prism-manual'
+import globalStyles from '../../utils/global'
 import React from 'react'
-import Link from '../components/Link'
+import Link from '../Link'
 import styled from '@emotion/styled'
-import Box from '../components/Box'
+import Box from '../Box'
 import Helmet from 'react-helmet'
-import DocWrapper from '../components/DocWrapper'
-import Search from '../components/Search'
-import { colors, constants, animatedUnderline } from '../utils/style'
+import DocWrapper from '../DocWrapper'
+import Search from '../Search'
+import { colors, constants, animatedUnderline } from '../../utils/style'
 import Image from 'gatsby-image'
-import type { Location, Match } from '../utils/types'
+import type { Location, Match } from '../../utils/types'
 import { Global } from '@emotion/core'
 
 const StyledLink = styled(Box)`
@@ -200,28 +200,28 @@ const TemplateWrapper = (props: TemplateWrapperProps) => {
   )
 }
 
-export const pageQuery = graphql`
-  query TemplateQuery {
-    allMarkdownRemark(filter: { fileAbsolutePath: { glob: "**/docs/*.md" } }) {
-      edges {
-        node {
-          frontmatter {
-            title
-          }
-          fields {
-            slug
-          }
-        }
-      }
-    }
-    avatar: file(name: { eq: "emotion" }) {
-      childImageSharp {
-        resolutions(width: 36, height: 36) {
-          ...GatsbyImageSharpResolutions_withWebp_noBase64
-        }
-      }
-    }
-  }
-`
+// export const pageQuery = graphql`
+//   query TemplateQuery {
+//     allMarkdownRemark(filter: { fileAbsolutePath: { glob: "**/docs/*.md" } }) {
+//       edges {
+//         node {
+//           frontmatter {
+//             title
+//           }
+//           fields {
+//             slug
+//           }
+//         }
+//       }
+//     }
+//     avatar: file(name: { eq: "emotion" }) {
+//       childImageSharp {
+//         resolutions(width: 36, height: 36) {
+//           ...GatsbyImageSharpResolutions_withWebp_noBase64
+//         }
+//       }
+//     }
+//   }
+// `
 
 export default TemplateWrapper
