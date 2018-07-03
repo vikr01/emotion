@@ -6,7 +6,12 @@ node_js:
 
 
 script:
-  - npm run test
+  - yarn lint:check
+  - yarn coverage
+  - yarn test:size
+  - yarn test:typescript
+  - yarn flow
+  - yarn test:prod
   - if [[ $TRAVIS_COMMIT_MESSAGE == *"#benchmark"* ]]; then npm run benchmark ; fi;
 
 before_install:
