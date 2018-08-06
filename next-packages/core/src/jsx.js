@@ -26,7 +26,12 @@ export const jsx: typeof React.createElement = function(
       }\``
     )
   }
+  let childrenLength = arguments.length - 2
 
+  let childrenArgs = new Array(arguments.length - 2)
+  for (let i = 0; i < childrenLength; i++) {
+    childrenArgs[i] = arguments[i + 2]
+  }
   return consume(context => {
     let registeredStyles = []
 
@@ -57,14 +62,12 @@ export const jsx: typeof React.createElement = function(
     }
     newProps.className = className
 
-    let argsLength = arguments.length
-
-    let createElementArgArray = new Array(argsLength)
+    let createElementArgArray = new Array(childrenLength + 2)
     createElementArgArray[0] = type
     createElementArgArray[1] = newProps
 
-    for (let i = 2; i < argsLength; i++) {
-      createElementArgArray[i] = arguments[i]
+    for (let i = 0; i < childrenLength; i++) {
+      createElementArgArray[i + 2] = childrenArgs[i]
     }
 
     // $FlowFixMe
