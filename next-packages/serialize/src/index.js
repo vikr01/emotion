@@ -76,7 +76,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function handleInterpolation(
-  mergedProps: void | Object,
+  mergedProps: null | Object,
   registered: RegisteredCache,
   interpolation: Interpolation
 ): string | number {
@@ -111,7 +111,7 @@ function handleInterpolation(
       return createStringFromObject(mergedProps, registered, interpolation)
     }
     case 'function': {
-      if (mergedProps !== undefined) {
+      if (mergedProps != null) {
         return handleInterpolation(
           mergedProps,
           registered,
@@ -129,7 +129,7 @@ function handleInterpolation(
 }
 
 function createStringFromObject(
-  mergedProps: void | Object,
+  mergedProps: null | Object,
   registered: RegisteredCache,
   obj: { [key: string]: Interpolation }
 ): string {
@@ -190,7 +190,7 @@ let styles = ''
 export const serializeStyles = function(
   registered: RegisteredCache,
   args: Array<Interpolation>,
-  mergedProps: void | Object
+  mergedProps: null | Object
 ): ScopedInsertableStyles {
   if (
     args.length === 1 &&

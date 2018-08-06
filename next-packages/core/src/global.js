@@ -34,9 +34,11 @@ class InnerGlobal extends React.Component<InnerGlobalProps> {
     this.updateStyles()
   }
   updateStyles() {
-    let serialized = serializeStyles(this.props.context.registered, [
-      this.props.styles
-    ])
+    let serialized = serializeStyles(
+      this.props.context.registered,
+      [this.props.styles],
+      null
+    )
     if (serialized.name === this.styleName) {
       return
     }
@@ -75,9 +77,11 @@ class InnerGlobal extends React.Component<InnerGlobalProps> {
   }
   render() {
     if (!isBrowser) {
-      const serialized = serializeStyles(this.props.context.registered, [
-        this.props.styles
-      ])
+      const serialized = serializeStyles(
+        this.props.context.registered,
+        [this.props.styles],
+        null
+      )
       let rules = this.props.context.stylis(``, serialized.styles)
 
       return (
