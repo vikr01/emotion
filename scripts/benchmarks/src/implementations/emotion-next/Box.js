@@ -11,13 +11,13 @@ const Box = ({
 }) => (
   <div
     {...other}
-    css={css(
+    css={[
       viewStyle,
       styles[`color${color}`],
       fixed && styles.fixed,
       layout === 'row' && styles.row,
       outer && styles.outer
-    )}
+    ]}
   />
 )
 
