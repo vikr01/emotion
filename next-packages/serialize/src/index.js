@@ -107,8 +107,55 @@ function handleInterpolation(
       if (interpolation.styles !== undefined) {
         return interpolation.styles
       }
+      let string = ''
 
-      return createStringFromObject(mergedProps, registered, interpolation)
+      if (Array.isArray(interpolation)) {
+        for (let i = 0; i < interpolation.length; i++) {
+          string += handleInterpolation(
+            mergedProps,
+            registered,
+            interpolation[i]
+          )
+        }
+      } else {
+        for (let key in interpolation) {
+          if (typeof interpolation[key] !== 'object') {
+            string += `${processStyleName(key)}:${processStyleValue(
+              key,
+              interpolation[key]
+            )};`
+          } else {
+            if (
+              key === 'NO_COMPONENT_SELECTOR' &&
+              process.env.NODE_ENV !== 'production'
+            ) {
+              throw new Error(
+                'Component selectors can only be used in conjunction with @emotion/babel-plugin-core.'
+              )
+            }
+            if (
+              Array.isArray(interpolation[key]) &&
+              (typeof interpolation[key][0] === 'string' &&
+                registered[interpolation[key][0]] === undefined)
+            ) {
+              interpolation[key].forEach(value => {
+                string += `${processStyleName(key)}:${processStyleValue(
+                  key,
+                  value
+                )};`
+              })
+            } else {
+              string += `${key}{${handleInterpolation(
+                mergedProps,
+                registered,
+                interpolation[key]
+              )}}`
+            }
+          }
+        }
+      }
+
+      return string
     }
     case 'function': {
       if (mergedProps !== undefined) {
@@ -126,58 +173,6 @@ function handleInterpolation(
       return cached !== undefined ? cached : interpolation
     }
   }
-}
-
-function createStringFromObject(
-  mergedProps: void | Object,
-  registered: RegisteredCache,
-  obj: { [key: string]: Interpolation }
-): string {
-  let string = ''
-
-  if (Array.isArray(obj)) {
-    for (let i = 0; i < obj.length; i++) {
-      string += handleInterpolation(mergedProps, registered, obj[i])
-    }
-  } else {
-    for (let key in obj) {
-      if (typeof obj[key] !== 'object') {
-        string += `${processStyleName(key)}:${processStyleValue(
-          key,
-          obj[key]
-        )};`
-      } else {
-        if (
-          key === 'NO_COMPONENT_SELECTOR' &&
-          process.env.NODE_ENV !== 'production'
-        ) {
-          throw new Error(
-            'Component selectors can only be used in conjunction with @emotion/babel-plugin-core.'
-          )
-        }
-        if (
-          Array.isArray(obj[key]) &&
-          (typeof obj[key][0] === 'string' &&
-            registered[obj[key][0]] === undefined)
-        ) {
-          obj[key].forEach(value => {
-            string += `${processStyleName(key)}:${processStyleValue(
-              key,
-              value
-            )};`
-          })
-        } else {
-          string += `${key}{${handleInterpolation(
-            mergedProps,
-            registered,
-            obj[key]
-          )}}`
-        }
-      }
-    }
-  }
-
-  return string
 }
 
 let labelPattern = /label:\s*([^\s;\n{]+)\s*;/g
