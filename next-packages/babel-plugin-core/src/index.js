@@ -83,7 +83,7 @@ export default createPlugin(
             }
             expressionPath.replaceWith(
               t.callExpression(
-                t.cloneDeep(state.cssIdentifier),
+                t.identifier(state.cssIdentifier.name),
                 [
                   path.node.value.expression,
                   state.emotionSourceMap &&
@@ -97,6 +97,18 @@ export default createPlugin(
               state,
               path: expressionPath
             })
+            // if (expressionPath.isCallExpression()) {
+            //   if (
+            //     expressionPath.node.arguments.length === 1 &&
+            //     t.isArrayExpression(expressionPath.node.arguments[0])
+            //   ) {
+            //     // expressionPath.replaceWith(expressionPath.arguments[0])
+            //   } else {
+            //     expressionPath.replaceWith(
+            //       t.arrayExpression(expressionPath.arguments)
+            //     )
+            //   }
+            // }
           }
         }
       }

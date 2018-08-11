@@ -54,6 +54,61 @@ var _ref = {
 const SomeComponent = props => <div css={_ref} {...props} />;"
 `;
 
+exports[`@emotion/babel-plugin-core jsx-should-not-hoist-or-add-css-call 1`] = `
+"/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+const SomeComponent = props => (
+  <div
+    css={{
+      color: props.color
+    }}
+    {...props}
+  />
+)
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+
+const SomeComponent = props => <div css={{
+  color: props.color
+}} {...props} />;"
+`;
+
+exports[`@emotion/babel-plugin-core jsx-should-not-hoist-or-add-css-call-with-array 1`] = `
+"/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+const SomeComponent = props => (
+  <div
+    css={[
+      {
+        color: props.color
+      },
+      {
+        backgroundColor: props.backgroundColor
+      }
+    ]}
+    {...props}
+  />
+)
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+
+const SomeComponent = props => <div css={[{
+  color: props.color
+}, {
+  backgroundColor: props.backgroundColor
+}]} {...props} />;"
+`;
+
 exports[`@emotion/babel-plugin-core static-object-with-camel-case 1`] = `
 "/** @jsx jsx */
 import { jsx } from '@emotion/core'
