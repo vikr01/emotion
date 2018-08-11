@@ -23,23 +23,6 @@ styleSheet.flush()
 
 */
 
-// $FlowFixMe
-function sheetForTag(tag: HTMLStyleElement): CSSStyleSheet {
-  if (tag.sheet) {
-    // $FlowFixMe
-    return tag.sheet
-  }
-
-  // this weirdness brought to you by firefox
-  /* istanbul ignore next */
-  for (let i = 0; i < document.styleSheets.length; i++) {
-    if (document.styleSheets[i].ownerNode === tag) {
-      // $FlowFixMe
-      return document.styleSheets[i]
-    }
-  }
-}
-
 export type Options = {
   nonce?: string,
   key: string,
@@ -101,7 +84,8 @@ export class StyleSheet {
     const tag = this.tags[this.tags.length - 1]
 
     if (this.isSpeedy) {
-      const sheet = sheetForTag(tag)
+      // $FlowFixMe flow has the wrong type def for this
+      let sheet: CSSStyleSheet = tag.sheet
       try {
         // this is the ultrafast version, works across browsers
         // the big drawback is that the css won't be editable in devtools
