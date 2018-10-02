@@ -34,10 +34,16 @@ export function getTargetClassName(state: *, t: *) {
   const stuffToHash = [moduleName]
 
   if (finalPath) {
-    stuffToHash.push(nodePath.normalize(finalPath))
+    stuffToHash.push(
+      nodePath.normalize(finalPath).replace(new RegExp(nodePath.sep, 'g'), '/')
+    )
   } else {
     stuffToHash.push(state.file.code)
   }
+
+  console.log('\n\n\n\n\n\n\n')
+  console.log({ stuffToHash })
+  console.log('\n\n\n\n\n\n\n')
 
   const stableClassName = `e${hashArray(stuffToHash)}${positionInFile}`
 
