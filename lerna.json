@@ -11,5 +11,5 @@
   },
   "version": "independent",
   "npmClient": "npm",
-  "packages": ["packages/*", "site", "scripts/*", "playgrounds/*"]
+  "useWorkspaces": true
 }
